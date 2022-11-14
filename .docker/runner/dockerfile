@@ -1,0 +1,26 @@
+FROM ubuntu:20.04
+
+ARG RUNNER_VERSION="2.298.2"
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y && \ 
+    apt-get install -y curl expect jq && \
+    apt-get upgrade -y && \ 
+    useradd -m runner
+
+RUN cd /home/runner && \ 
+    mkdir actions-runner && \ 
+    cd actions-runner && \
+    curl -o actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \ 
+    tar xzf ./actions-runner-linux-x64-2.298.2.tar.gz
+
+RUN chown -R runner ~runner && \ 
+    /home/runner/actions-runner/bin/installdependencies.sh
+
+COPY ./Scripts/start.sh start.sh
+
+RUN chmod +x start.sh
+
+USER runner
+
+ENTRYPOINT [ "./start.sh" ]
