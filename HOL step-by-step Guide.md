@@ -15,12 +15,16 @@ Dec 2022
 
 ## Exercise 1
 
-### [C#](#tab/cs)
+<details>
+<summary>C#</summary>
 ```
-C#
+ここに C# のコードを記述
 ```
+</details>
 
-### [Java](#tab/java)
+<details>
+<summary>Java</summary>
 ```
-Java
+ここに Java のコードを記述
 ```
+</details>
