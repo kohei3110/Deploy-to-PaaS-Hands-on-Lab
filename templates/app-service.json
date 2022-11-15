@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "webAppName": {
+            "type": "string",
+            "metadata": {
+                "description": "Web アプリ名 (App Service には app-, Plan には asp- の接頭語が付きます)"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "servicePlanName": "[concat('asp-', parameters('webAppName'))]",
+        "siteName": "[concat('app-', parameters('webAppName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2022-03-01",
+            "name": "[variables('servicePlanName')]",
+            "location": "[resourceGroup().location]",
+            "sku": {
+                "name": "S1",
+                "tier": "Standard"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2022-03-01",
+            "name": "[variables('siteName')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]"
+            ],
+            "properties": {
+                "siteConfig": {
+                    "metadata": [
+                        {
+                            "name": "CURRENT_STACK",
+                            "value": "dotnet"
+                        }
+                    ],
+                    "netFrameworkVersion": "v6.0"
+                },
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]"
+            }
+        }
+    ],
+    "outputs": {}
+}
