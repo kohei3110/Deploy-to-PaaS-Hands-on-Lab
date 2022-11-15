@@ -75,7 +75,7 @@ jobs:
       
       - name: Deploy to Web app
         id: deploy-to-webAppName
-        uses: azure/webapp-deploy@v2
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'app-${{ github.event.inputs.webAppName }}'
           slot-name: 'Production'
