@@ -1,1 +1,35 @@
 name: Deploy to new App Service
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroup:
+        description: 'リソース グループ名'
+        required: true
+        type: string
+      webAppName:
+        description: 'Web アプリ名'
+        required: true
+        type: string
+  
+env:
+  APP_PATH: './src/CS'
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: ARM deploy
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+          template: ./templates/app-service.json
+          parameters: webAppName=${{ github.event.inputs.webAppName }}

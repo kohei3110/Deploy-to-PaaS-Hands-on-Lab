@@ -43,7 +43,8 @@
                     ],
                     "netFrameworkVersion": "v6.0"
                 },
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]",
+                "httpsOnly": true
             }
         }
     ],
