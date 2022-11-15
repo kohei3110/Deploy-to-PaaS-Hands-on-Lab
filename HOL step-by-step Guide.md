@@ -17,6 +17,7 @@ Dec 2022
 
 <details>
 <summary>C#</summary>
+
 ```
 ここに C# のコードを記述
 ```
@@ -24,6 +25,7 @@ Dec 2022
 
 <details>
 <summary>Java</summary>
+
 ```
 ここに Java のコードを記述
 ```
