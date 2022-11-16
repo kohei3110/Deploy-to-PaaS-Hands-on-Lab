@@ -44,7 +44,53 @@ Dec 2022
 
 - 複製先となるローカル ディレクトリを選択
 
+  GitHub の認証情報が求められる場合は、アカウント名、パスワードを入力し認証を実施
+
 - 複製されたリポジトリを開くかどうかのメッセージが表示されるので "**Open**" をクリック
+
+- Explorer に複製したリポジトリのディレクトリ、ファイルが表示
+
+  <img src="images/github-clone-04.png" />
+
+- ローカルでアプリケーションを実行を確認
+
+  <details>
+  <summary>C#</summary>
+
+  - "**Terminal**" - "**New Terminal**" を選択
+
+    <img src="images/github-clone-05.png" />
+  
+  - C# の ASP.NET Core プロジェクトのディレクトリへ移動
+
+    ```
+    cd src/CS
+    ```
+  
+  - アプリケーションを実行
+
+    ```
+    dotnet run
+    ```
+  
+  - ターミナルに以下のようなメッセージが表示（Web アプリをテストする URL が https\://localhost:{port} で表示）
+
+    HTTPS URL を Ctrl キーを押しながらクリック
+
+    <img src="images/github-clone-06.png" />
+  
+  - Web ブラウザが起動し、アプリケーションを表示
+
+    <img src="images/github-clone-07.png" />
+
+  - ターミナルで Ctrl + C を押下してアプリケーションを終了
+
+  </details>
+
+  <details>
+  <summary>他の言語</summary>
+  
+  </details>
 
 <br />
 
