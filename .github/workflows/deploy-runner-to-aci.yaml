@@ -50,6 +50,7 @@ jobs:
         run: |
           docker build ./.docker/runner -t ${{ secrets.REGISTRY_LOGINSERVER }}/gh_runner:${{ github.sha }} -f ./.docker/runner/dockerfile
           docker push ${{ secrets.REGISTRY_LOGINSERVER }}/gh_runner:${{ github.sha }}
+          
   deploy-new-aci:
     if: ${{ github.event.inputs.deploy-aci == 'true' }}
     runs-on: ubuntu-latest
