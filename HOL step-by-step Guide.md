@@ -96,6 +96,70 @@ Dec 2022
 
 ### Task 3: App Service の作成
 
+- Web ブラウザを起動し <a href="https://portal.azure.com/">Azure ポータル</a> へアクセス
+
+- "**+作成** をクリック
+
+  <img src="images/add-resources.png" />
+
+- Web アプリの "**作成**" をクリック
+
+  <img src="images/new-app-service-01.png" />
+
+- Web アプリの作成
+
+  - "**基本**"
+
+    - プロジェクトの詳細
+
+      - サブスクリプション: ワークショップで使用するサブスクリプション
+
+      - リソース グループ: 展開先のリソース グループ
+
+    - インスタンスの詳細
+
+      - 名前: 一意となる名前を入力
+
+      - 公開: コード
+
+      - ランタイム スタック: 展開するアプリのランタイムを選択
+
+      - オペレーティング システム: Windows
+
+      - 地域: リソース グループと同じ地域を選択
+
+    - App Service プラン
+
+      - プラン: 新規作成（既定の名前で OK）
+
+      - SKU とサイズ: Standard S1
+
+    <img src="images/new-app-service-02.png" />
+
+  - "**デプロイ**"
+
+    - 継続的デプロイ: 無効化
+
+    <img src="images/new-app-service-03.png" />
+
+  - "**ネットワーク**"
+
+    - ネットワーク インジェクションを有効にする: オフ
+
+    <img src="images/new-app-service-04.png" />
+
+  - "**監視**"
+
+    - Application Insights を有効にする: いいえ
+
+    <img src="images/new-app-service-05.png" />
+
+- "確認および作成" をクリックし、指定した内容を確認
+
+- "**作成**" をクリックしリソースを展開
+
+  <img src="images/new-app-service-06.png" />
+
 <br />
 
 ### Task 4: App Service へ Web アプリを発行
