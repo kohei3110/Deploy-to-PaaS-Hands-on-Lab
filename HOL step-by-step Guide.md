@@ -466,7 +466,7 @@ Dec 2022
   
   - エディタでバージョン番号を変更
 
-    <img src="images/update-app-02.png" />
+    <img src="images/update-app-service-workflow-06.png" />
 
   </details>
 
@@ -486,6 +486,14 @@ Dec 2022
 <br />
 
 ### Task 4: ワークフローの実行
+
+- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+
+- アプリを展開するワークフローを選択
+
+- "**Run workflow**" をクリックし、表示されるツールチップから "**Run workflow**" をクリック
+
+  <img src="images/update-app-service-workflow-05.png" />
 
 <br />
 
