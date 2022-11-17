@@ -276,6 +276,12 @@ Dec 2022
 
   <img src="images/app-service-workflow-01.png" />
 
+- "**Settings**" タブの "**Secrets**" - "**Actions**" を選択
+
+  シークレットに App Service への展開に使用する発行プロファイルが登録されていることを確認
+
+  <img src="images/action-secret.png" />
+
 - "**Actions**" タブを選択し、ワークフローの実行履歴を確認
 
   <img src="images/app-service-workflow-02.png" />
@@ -305,6 +311,63 @@ Dec 2022
   <details>
   <summary>C#</summary>
 
+  - **on** セクションでトリガー イベントを手動のみに変更
+
+  - **env** セクションで環境変数 APP_PATH を定義
+
+  - **build** ジョブの dotnet コマンド、アーティファクトへのアップロードする成果物のパスに定義した APP_PATH を使用
+
+  - **deploy** ジョブは変更なし
+
+    ```
+    on:
+      workflow_dispatch:
+
+    env:
+      APP_PATH: './src/CS'
+
+    jobs:
+      build:
+        runs-on: windows-latest
+    
+        steps:
+          - uses: actions/checkout@v2
+
+          - name: Set up .NET Core
+            uses: actions/setup-dotnet@v1
+            with:
+              dotnet-version: '6.0.x'
+              include-prerelease: true
+    
+          - name: Build with dotnet
+            run: dotnet build ${{ env.APP_PATH }} --configuration Release
+    
+          - name: dotnet publish
+            run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
+    
+          - name: Upload artifact for deployment job
+            uses: actions/upload-artifact@v2
+            with:
+              name: .net-app
+              path: ${{ env.APP_PATH }}/myapp
+    ```
+
+  </details>
+
+  <details>
+  <summary>他の言語</summary>
+
+  </details>
+
+<br />
+
+### Task 3: アプリケーションの更新
+
+- ワークフローからの展開によりアプリケーションが更新されたことを確認するために、コードを修正
+
+  <details>
+  <summary>C#</summary>
+
   </details>
 
   <details>
@@ -314,11 +377,33 @@ Dec 2022
 
 - サイドバーで Source Controle を選択し変更をコミット
 
-- GitHub リポジトリへプッシュ
+  <img src="images/update-app-service-workflow-03.png" />
+
+- GitHub リポジトリと同期
+
+  <img src="images/update-app-service-workflow-04.png" />
 
 <br />
 
-### Task 3: ワークフローの実行
+### Task 4: ワークフローの実行
+
+- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+
+- アプリを展開するワークフローを選択
+
+- "**Run workflow**" をクリックし、表示されるツールチップから "**Run workflow**" をクリック
+
+  <img src="images/update-app-service-workflow-05.png" />
+
+- ワークフローの実行状況を確認
+
+   <img src="images/update-app-service-workflow-06.png" />
+
+- ワークフローの完了を確認
+
+   <img src="images/update-app-service-workflow-07.png" />
+
+
 
 <br />
 
