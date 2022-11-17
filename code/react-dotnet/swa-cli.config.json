@@ -1,0 +1,14 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "default": {
+      "appLocation": ".",
+      "apiLocation": "api",
+      "outputLocation": "build",
+      "appBuildCommand": "yarn build",
+      "run": "yarn start",
+      "appDevserverUrl": "http://localhost:3000",
+      "apiDevserverUrl": "http://localhost:7071"
+    }
+  }
+}
