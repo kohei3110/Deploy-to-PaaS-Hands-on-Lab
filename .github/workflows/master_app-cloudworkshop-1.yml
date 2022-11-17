@@ -49,6 +49,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'app-cloudworkshop-1'
-          slot-name: 'Production'
+          slot-name: 'staging'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0BDD04A2E0F04C6E86207BADE5A92749 }}
           package: .
