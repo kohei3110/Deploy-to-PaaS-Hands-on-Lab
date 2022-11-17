@@ -368,6 +368,14 @@ Dec 2022
   <details>
   <summary>C#</summary>
 
+  - src/CS/Views/Home の Index.cshtml を選択
+
+    <img src="images/update-app-01.png" />
+  
+  - エディタでバージョン番号を変更
+
+    <img src="images/update-app-02.png" />
+
   </details>
 
   <details>
@@ -403,7 +411,13 @@ Dec 2022
 
    <img src="images/update-app-service-workflow-07.png" />
 
+- Azure ポータルで App Service の管理ブレードへアクセス
 
+- URL をクリック
+
+   <img src="images/update-app-service-workflow-07.png" />
+
+- 新しいタブでアプリケーションが開くので、アプリケーションが更新されていることを確認
 
 <br />
 
@@ -411,17 +425,71 @@ Dec 2022
 
 ### Task 1: ステージング環境の準備
 
+- Azure ポータルで App Service の管理ブレードへアクセス、"**デプロイ スロット**" を選択
+
+- "**+ スロットの追加**" をクリック
+
+  <img src="images/app-service-staging-slot-01.png" />
+
+- 名前に "**staging**" と入力し、"**追加**" をクリック
+
+  <img src="images/app-service-staging-slot-02.png" />
+
+- スロットが正常に追加されたことを確認
+
+  <img src="images/app-service-staging-slot-04.png" />
+
 <br />
 
 ### Task 2: ワークフローの修正
 
+- Visual Studio Code で、ワークフロー ファイルを選択しエディタで表示
+
+  <img src="images/update-app-service-workflow-02.png" />
+
+- uses: azure/webapps-deploy@v2 セクションで展開先の slot-name を Production から staging へ変更
+
+  <img src="images/app-service-staging-slot-05.png" />
+
 <br />
 
-### Task 3: ワークフローの実行
+### Task 3: アプリケーションの更新
+
+- ワークフローからの展開によりアプリケーションが更新されたことを確認するために、コードを修正
+
+  <details>
+  <summary>C#</summary>
+
+  - src/CS/Views/Home の Index.cshtml を選択
+
+    <img src="images/update-app-01.png" />
+  
+  - エディタでバージョン番号を変更
+
+    <img src="images/update-app-02.png" />
+
+  </details>
+
+  <details>
+  <summary>他の言語</summary>
+
+  </details>
+
+- サイドバーで Source Controle を選択し変更をコミット
+
+  <img src="images/update-app-service-workflow-03.png" />
+
+- GitHub リポジトリと同期
+
+  <img src="images/update-app-service-workflow-04.png" />
 
 <br />
 
-### Task 4: スワップ操作
+### Task 4: ワークフローの実行
+
+<br />
+
+### Task 5: スワップ操作
 
 <br />
 
