@@ -290,7 +290,31 @@ Dec 2022
 
   <img src="images/app-service-workflow-04.png" />
 
-- 
+- Visual Studio Code のサイドバーで "**Source Control**" を選択
+
+- "**...**" - "**Pull**" をクリック
+
+  <img src="images/update-app-service-workflow-01.png" />
+
+- ワークフロー ファイルを選択しエディタで表示
+
+  <img src="images/update-app-service-workflow-02.png" />
+
+- エディタで .yml ファイルを編集
+
+  <details>
+  <summary>C#</summary>
+
+  </details>
+
+  <details>
+  <summary>他の言語</summary>
+
+  </details>
+
+- サイドバーで Source Controle を選択し変更をコミット
+
+- GitHub リポジトリへプッシュ
 
 <br />
 
