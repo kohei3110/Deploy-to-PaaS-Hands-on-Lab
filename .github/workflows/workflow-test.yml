@@ -1,6 +1,9 @@
 name: sample workflow
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
 
 jobs:
@@ -14,6 +17,7 @@ jobs:
       - name: checkout source code
         uses: actions/checkout@v2
       
-      - run: |
+      - name: run command
+        run: |
           pwd
           ls
