@@ -9,6 +9,12 @@ Dec 2022
 
 - [Exercise 1: 開発ツールから App Service への Web アプリの展開](#exercise-1-開発ツールから-app-service-への-web-アプリの展開)
 
+- [Exercise 2: GitHub Actions を使用した App Service への Web アプリの展開](#exercise-2-github-actions-を使用した-app-service-への-web-アプリの展開)
+
+- [Exercise 3: ステージング環境への展開とスワップ操作による本番環境への昇格](#exercise-3-ステージング環境への展開とスワップ操作による本番環境への昇格)
+
+- [Exercise 4: GitHub Actions を使用した Container Apps への Web アプリの展開](#exercise-4-github-actions-を使用した-container-apps-への-web-アプリの展開)
+
 <br />
 
 ## Exercise 1: 開発ツールから App Service への Web アプリの展開
@@ -917,7 +923,17 @@ Dec 2022
 
   <img src="images/deploy-to-container-app-01.png" />
 
-- 
+- ワークフローが正常に完了したことを確認
+
+  <img src="images/deploy-to-container-app-02.png" />
+
+- 作成した Container Apps の管理ブレードへ移動
+
+- "**概要**" タブの "**アプリケーション URL**" をクリック
+
+    <img src="images/new-container-app-05.png" />
+
+- Web ブラウザの新しいタブでアプリケーションが表示されることを確認
 
 <br />
 
