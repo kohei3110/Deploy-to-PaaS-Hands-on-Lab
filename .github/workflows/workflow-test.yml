@@ -5,7 +5,7 @@ on:
 
 jobs:
   test-job:
-    runner: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: say hello
