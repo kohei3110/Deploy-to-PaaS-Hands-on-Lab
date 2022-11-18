@@ -1,0 +1,19 @@
+name: sample workflow
+
+on:
+  workflow_dispatch
+
+jobs:
+  test-job:
+    runner: ubuntu-latest
+
+    steps:
+      - name: say hello
+        run: echo "Hello World"
+
+      - name: checkout source code
+        uses: actions/checkout@v2
+      
+      - run: |
+          pwd
+          ls
