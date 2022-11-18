@@ -112,7 +112,7 @@ Dec 2022
 
     - プロジェクトの詳細
 
-      - サブスクリプション: ワークショップで使用するサブスクリプション
+      - サブスクリプション: ワークショップで使用中のサブスクリプション
 
       - リソース グループ: 展開先のリソース グループ
 
@@ -700,19 +700,206 @@ Dec 2022
 
   <img src="images/deploy-to-container-02.png" />
 
-- Azure ポータルで Azure Container Registry の管理ブレードへアクセス
+- Azure ポータルにアクセスし Azure Container Registry の管理ブレードへ移動
 
 - "**リポジトリ**" を選択
 
+  <img src="images/deploy-to-container-03.png" />
+
 - "**app**" をクリックし、イメージがアップロードされていることを確認
+
+  <img src="images/deploy-to-container-04.png" />
 
 <br />
 
 ### Task 5: Container Apps の作成
 
+- Web ブラウザで Azure ポータルにアクセスし "**作成**" をクリック
+
+  <img src="images/add-resources.png" />
+
+- 左のメニューで "**コンテナー**" を選択、コンテナー アプリの "**作成**" をクリック
+
+  <img src="images/new-container-app-01.png" />
+
+- Container Apps の作成
+
+  - "**基本**"
+
+    - プロジェクトの詳細
+
+      - サブスクリプション: ワークショップで使用中のサブスクリプション
+
+      - リソース グループ: 展開先のリソース グループ
+
+      - コンテナー アプリ名: 任意 (小文字の英数字、ハイフンを使用可で 32 文字以下)
+    
+    - Container Apps 環境
+
+      - 地域: リソース グループと同じ地域を選択
+
+      - Container Apps 環境: 既定の設定で新規作成
+
+    <img src="images/new-container-app-02.png" />
+
+  - "**アプリ設定**"
+
+    - クイック スタート イメージを使用する: オン (既定)
+
+    - クリック スタート イメージ: Simple hello world container (既定)
+
+    <img src="images/new-container-app-03.png" />
+  
+  - "**確認と作成** をクリック
+
+  - 指定した内容を確認し "**作成**" をクリック
+
+    <img src="images/new-container-app-04.png" />
+
+- 作成した Container Apps の管理ブレードへ移動
+
+- "**概要**" タブの "**アプリケーション URL**" をクリック
+
+    <img src="images/new-container-app-05.png" />
+
+- Web ブラウザの新しいタブでアプリケーションが表示
+
+    <img src="images/new-container-app-06.png" />
+
 <br />
 
 ### Task 6: ワークフローの更新
+
+- Visual Studio Code で、先の手順で追加したワークフロー ファイルを選択
+
+- ワークフロー実行時に値を入力できるようパラメーターを workflow_dispatch へ追加
+
+  ```
+      inputs:
+        resourceGroup:
+          description: 'リソース グループ名'
+          required: true
+          type: string
+        containerApp:
+          description: 'コンテナー アプリ名'
+          required: true
+          type: string
+  ```
+
+- Container Apps へアプリを展開するジョブを追加
+
+  ```
+      deploy:
+        runs-on: ubuntu-latest
+        needs: push
+
+        steps:
+          - name: Azure Login
+            uses: azure/login@v1
+            with:
+              creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+          - name: Deploy to containerapp
+            uses: azure/CLI@v1
+            with:
+              inlineScript: |
+                az config set extension.use_dynamic_install=yes_without_prompt
+                az containerapp registry set -n ca-devops-test1 -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
+                az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
+  
+   ```
+
+  ※ Azure CLI を使用しアプリを展開
+
+  <details>
+  <summary>ワークフロー全体</summary>
+
+  ```
+  name: Deploy container
+
+  on:
+    workflow_dispatch:
+      inputs:
+        resourceGroup:
+          description: 'リソース グループ名'
+          required: true
+          type: string
+        containerApp:
+          description: 'コンテナー アプリ名'
+          required: true
+          type: string
+
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        env:
+          APP_PATH: './src/CS'
+
+        steps:
+          - uses: actions/checkout@v2
+
+          - name: Set up .NET Core
+            uses: actions/setup-dotnet@v1
+            with:
+              dotnet-version: '6.0.x'
+              include-prerelease: true
+          
+          - name: Build with dotnet
+            run: dotnet build ${{ env.APP_PATH }} --configuration Release
+          
+          - name: dotnet publish
+            run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
+          
+          - name: Upload artifact for deployment job
+            uses: actions/upload-artifact@v2
+            with:
+              name: .net-app
+              path: ${{ env.APP_PATH }}/myapp
+    
+       push:
+        runs-on: ubuntu-latest
+        needs: build
+      
+        steps:
+          - uses: actions/checkout@v2
+
+          - name: Download artifact from build job
+            uses: actions/download-artifact@v2
+            with:
+              name: .net-app
+              path: release
+          
+          - name: Login via Azure Container Registry
+            uses: azure/docker-login@v1
+            with:
+              login-server: ${{ secrets.REGISTRY_LOGINSERVER }}
+              username: ${{ secrets.REGISTRY_USERNAME }}
+              password: ${{ secrets.REGISTRY_PASSWORD }}
+          
+          - name: Docker build and push
+            run: |
+              docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/CS/dockerfile
+              docker push ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
+
+      deploy:
+        runs-on: ubuntu-latest
+        needs: push
+
+        steps:
+          - name: Azure Login
+            uses: azure/login@v1
+            with:
+              creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+          - name: Deploy to containerapp
+            uses: azure/CLI@v1
+            with:
+              inlineScript: |
+                az config set extension.use_dynamic_install=yes_without_prompt
+                az containerapp registry set -n ca-devops-test1 -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
+                az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
+  ```
+  </details>
 
 <br />
 
