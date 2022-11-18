@@ -1,7 +1,7 @@
 name: sample workflow
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
 
 jobs:
   test-job:
