@@ -541,37 +541,168 @@ Dec 2022
 
 <br />
 
-## Exercise 4: GitHub Actions ワークフローの作成
-
-
-
-<br />
-
-## Exercise 5: GitHub Actions を使用した Container Apps への Web アプリの展開
+## Exercise 4: GitHub Actions を使用した Container Apps への Web アプリの展開
 
 ### Task 1: サービス プリンシパルの作成
 
+- Cloud Shell を起動
+
+  <img src="images/create-sp-01.png" />
+
+- リソース グループのリソース ID を取得（リソース グループ名は使用環境に合わせて変更）
+
+  ```
+  groupId=$(az group show --name {リソース グループ名} --query id --output tsv)
+  ```
+
+- サービス プリンシパルの作成（名前は任意、リソース グループに対する共同作成者の権限を付与）
+
+  ```
+  az ad sp create-for-rbac --name "GitHub-Deploy" --scope $groupId --role Contributor --sdk-auth
+  ```
+
+  <img src="images/create-sp-02.png" />
+
+- 出力された結果を {} も含めてコピーし、メモ帳などに貼り付け
+
+- リソース グループに対して共同作成者の権限が付与されていることを確認
+
+  <img src="images/create-sp-03.png" />
+
 <br />
 
-### Task 2: ワークフローの作成
+### Task 2: 資格情報の GitHub リポジトリへの保存
 
-#### アプリのコンテナ化
+- Web ブラウザで GitHub リポジトリへアクセス、"**Settings** タブを選択
+
+- "**Secrets**" - "**Actions**" に次のシークレットを登録
+
+  | シークレット名 | 値 |
+  | ---- | ---- |
+  | AZURE_CREDENTIALS | サービス プリンシパル作成時に出力された JSON 全体 |
+  | REGISTRY_LOGINSERVER | Azure Container Registry のログイン サーバー名 |
+  | REGISTRY_USERNAME | サービス プリンシパルの作成時に出力された JSON 内の clientId |
+  | REGISTRY_PASSWORD | サービス プリンシパルの作成時に出力された JSON 内の clientSecret |
+  | AZURE_SUBSCRIPTION | Azure サブスクリプション ID |
+
+  <img src="images/action-secret-2.png" />
+
+  - Azure Container Registry のログイン サーバー名は管理ブレードのアクセス キーから取得
+
+    <img src="images/acr-login-server.png" />
+  
+  - サブスクリプション ID は、サブスクリプションの管理ブレードから取得
+
+    <img src="images/azure-subscription-id.png" />
+
+### Task 3: ワークフローの作成
+
+- Visual Studio Code で .github/workflows に新しいワークフロー ファイル (.yml) を追加
+
+- ワークフロー名とトリガー条件を追加
+
+  ```
+  name: Deploy container
+
+  on:
+    workflow_dispatch:
+  ```
+
+  ※ ワークフローは手動で実行するためトリガーは workflow_dispatch を指定
+
+  <details>
+  <summary>C#</summary>
+
+  - アプリケーションのビルド ジョブを追加
+
+    ```
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        env:
+          APP_PATH: './src/CS'
+
+        steps:
+          - uses: actions/checkout@v2
+
+          - name: Set up .NET Core
+            uses: actions/setup-dotnet@v1
+            with:
+              dotnet-version: '6.0.x'
+              include-prerelease: true
+          
+          - name: Build with dotnet
+            run: dotnet build ${{ env.APP_PATH }} --configuration Release
+          
+          - name: dotnet publish
+            run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
+          
+          - name: Upload artifact for deployment job
+            uses: actions/upload-artifact@v2
+            with:
+              name: .net-app
+              path: ${{ env.APP_PATH }}/myapp
+    ```
+
+    ※ App Service への展開を行うワークフローの build ジョブと同じ、環境変数はジョブ内で定義
+
+  - Azure Container Registry へイメージをプッシュ
+
+    ```
+      push:
+        runs-on: ubuntu-latest
+        needs: build
+      
+        steps:
+          - uses: actions/checkout@v2
+
+          - name: Download artifact from build job
+            uses: actions/download-artifact@v2
+            with:
+              name: .net-app
+              path: release
+          
+          - name: Login via Azure Container Registry
+            uses: azure/docker-login@v1
+            with:
+              login-server: ${{ secrets.REGISTRY_LOGINSERVER }}
+              username: ${{ secrets.REGISTRY_USERNAME }}
+              password: ${{ secrets.REGISTRY_PASSWORD }}
+          
+          - name: Docker build and push
+            run: |
+              docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }} -f ./.docker/CS/dockerfile
+              docker push ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
+    ```
+
+    ※ needs フィールドの設定により build ジョブの完了を待ってから実行
+
+    ※ docker コマンドでイメージの構築と Azure Container Registry へイメージをアップロード
+
+  </details>
+
+  <details>
+  <summary>他の言語</summary>
+
+  </details>
+
+- ワークフロー ファイル作成後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
 
 <br />
 
-#### Azure Container Registry へのコンテナ イメージのプッシュ
+### Task 4: ワークフローの検証
 
 <br />
 
-#### Container Apps への展開
+### Task 5: Container Apps の作成
 
 <br />
 
-#### （ご参考）ワークフローの完成系のサンプル
+### Task 6: ワークフローの更新
 
 <br />
 
-### Task 3: ワークフローの実行
+### Task 7: ワークフローの実行
 
 <br />
 
