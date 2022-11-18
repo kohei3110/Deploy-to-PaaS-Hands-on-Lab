@@ -585,19 +585,18 @@ Dec 2022
   | ---- | ---- |
   | AZURE_CREDENTIALS | サービス プリンシパル作成時に出力された JSON 全体 |
   | REGISTRY_LOGINSERVER | Azure Container Registry のログイン サーバー名 |
-  | REGISTRY_USERNAME | サービス プリンシパルの作成時に出力された JSON 内の clientId |
-  | REGISTRY_PASSWORD | サービス プリンシパルの作成時に出力された JSON 内の clientSecret |
-  | AZURE_SUBSCRIPTION | Azure サブスクリプション ID |
+  | REGISTRY_USERNAME | Azure Container Registry の管理者のユーザー名 |
+  | REGISTRY_PASSWORD | Azure Container Registry の管理者のパスワード |
+  | AZURE_SUBSCRIPTION | サービス プリンシパルの作成時に出力された JSON 内の subscriptionId |
 
   <img src="images/action-secret-2.png" />
 
-  - Azure Container Registry のログイン サーバー名は管理ブレードのアクセス キーから取得
+  - Azure Container Registry のログイン サーバー名、ユーザー名、パスワードは、管理ブレードのアクセス キーから取得
 
     <img src="images/acr-login-server.png" />
-  
-  - サブスクリプション ID は、サブスクリプションの管理ブレードから取得
 
-    <img src="images/azure-subscription-id.png" />
+    ※ 管理者ユーザーを "**有効**" に設定
+  
 
 ### Task 3: ワークフローの作成
 
