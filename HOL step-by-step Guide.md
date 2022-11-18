@@ -7,6 +7,8 @@ Dec 2022
 
 ### Contents
 
+- [Exercise 1: 開発ツールから App Service への Web アプリの展開](#exercise-1-開発ツールから-app-service-への-web-アプリの展開)
+
 <br />
 
 ## Exercise 1: 開発ツールから App Service への Web アプリの展開
@@ -806,7 +808,7 @@ Dec 2022
             inlineScript: |
               az config set extension.use_dynamic_install=yes_without_prompt
               az containerapp registry set -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
-              az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
+              az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
 
   ```
 
@@ -898,7 +900,7 @@ Dec 2022
             inlineScript: |
               az config set extension.use_dynamic_install=yes_without_prompt
               az containerapp registry set -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
-              az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
+              az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
 
   ```
   </details>
@@ -906,6 +908,14 @@ Dec 2022
 <br />
 
 ### Task 7: ワークフローの実行
+
+- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+
+- Container Apps へアプリを展開するワークフローを選択
+
+- 展開先のリソース グループ、Container Apps の名前を入力し "**Run workflow**" をクリック
+
+  <img src="images/deploy-to-container-app-01.png" />
 
 - 
 
