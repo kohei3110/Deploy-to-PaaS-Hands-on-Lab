@@ -435,9 +435,27 @@ Dec 2022
 
   <img src="images/app-service-staging-slot-02.png" />
 
-- スロットが正常に追加されたことを確認
+- 追加されたスロットをクリックし、管理ブレードへ移動
 
   <img src="images/app-service-staging-slot-04.png" />
+
+- "**発行プロファイルの取得**" をクリック
+
+  <img src="images/publish-settings-01.png" />
+
+- ダウンロードした発行プロファイルをメモ帳などのエディタで表示
+
+- Web ブラウザで GitHub リポジトリへアクセス、"**Settings** タブを選択
+
+- "**Secrets**" - "**Actions**" を選択し、App Service により登録されたシークレットを更新画面を表示
+
+  <img src="images/publish-settings-02.png" />
+
+- 発行プロファイルの内容をコピーし、**Value** へ貼り付け
+
+  <img src="images/publish-settings-03.png" />
+
+- "**Update secret**" をクリックし、シークレット情報を更新
 
 <br />
 
@@ -466,7 +484,7 @@ Dec 2022
   
   - エディタでバージョン番号を変更
 
-    <img src="images/update-app-service-workflow-06.png" />
+    <img src="images/app-service-staging-slot-06.png" />
 
   </details>
 
@@ -493,15 +511,39 @@ Dec 2022
 
 - "**Run workflow**" をクリックし、表示されるツールチップから "**Run workflow**" をクリック
 
-  <img src="images/update-app-service-workflow-05.png" />
+  <img src="images/app-service-staging-slot-07.png" />
+
+- ワークフローが正常に完了することを確認
+
+  <img src="images/app-service-staging-slot-08.png" />
+
+- App Service のステージング環境の管理ブレードへアクセス、URL をクリックし、アプリケーションの更新を確認
 
 <br />
 
 ### Task 5: スワップ操作
 
+- App Service の管理ブレードで "**デプロイ スロット**" を選択
+
+- "**スワップ**" をクリック
+
+  <img src="images/app-service-swap-01.png" />
+
+- ソースにステージング環境、ターゲットにプロダクション環境が表示されていることを確認し "**スワップ**" をクリック
+
+  <img src="images/app-service-swap-02.png" />
+
+- App Service の管理ブレードの "**概要**" タブから "**URL**" をクリック
+
+   <img src="images/update-app-service-workflow-07.png" />
+
+- ステージング環境と本番環境が切り替わっていることを確認
+
 <br />
 
 ## Exercise 4: GitHub Actions ワークフローの作成
+
+
 
 <br />
 
