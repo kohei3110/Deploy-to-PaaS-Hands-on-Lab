@@ -14,6 +14,7 @@ jobs:
       - name: checkout source code
         uses: actions/checkout@v2
       
-      - run: |
+      - name: run command
+        run: |
           pwd
           ls
