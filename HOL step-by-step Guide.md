@@ -383,7 +383,7 @@ Dec 2022
 
   </details>
 
-- サイドバーで Source Controle を選択し変更をコミット
+- サイドバーで Source Controle を選択、コメントを入力し変更をコミット
 
   <img src="images/update-app-service-workflow-03.png" />
 
@@ -413,11 +413,7 @@ Dec 2022
 
 - Azure ポータルで App Service の管理ブレードへアクセス
 
-- URL をクリック
-
-   <img src="images/update-app-service-workflow-07.png" />
-
-- 新しいタブでアプリケーションが開くので、アプリケーションが更新されていることを確認
+- URL をクリックし、新しいタブでアプリケーションが更新されていることを確認
 
 <br />
 
@@ -493,7 +489,7 @@ Dec 2022
 
   </details>
 
-- サイドバーで Source Controle を選択し変更をコミット
+- サイドバーで Source Controle を選択、コメントを入力し変更をコミット
 
   <img src="images/update-app-service-workflow-03.png" />
 
@@ -642,6 +638,7 @@ Dec 2022
             with:
               name: .net-app
               path: ${{ env.APP_PATH }}/myapp
+    
     ```
 
     ※ App Service への展開を行うワークフローの build ジョブと同じ、環境変数はジョブ内で定義
@@ -673,6 +670,7 @@ Dec 2022
             run: |
               docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }} -f ./.docker/CS/dockerfile
               docker push ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
+    
     ```
 
     ※ needs フィールドの設定により build ジョブの完了を待ってから実行
