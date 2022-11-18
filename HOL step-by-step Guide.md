@@ -784,6 +784,7 @@ Dec 2022
           description: 'コンテナー アプリ名'
           required: true
           type: string
+  
   ```
 
 - Container Apps へアプリを展開するジョブを追加
@@ -798,7 +799,7 @@ Dec 2022
             uses: azure/login@v1
             with:
               creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+          
           - name: Deploy to containerapp
             uses: azure/CLI@v1
             with:
@@ -806,8 +807,8 @@ Dec 2022
                 az config set extension.use_dynamic_install=yes_without_prompt
                 az containerapp registry set -n ca-devops-test1 -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
                 az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
-  
-   ```
+
+  ```
 
   ※ Azure CLI を使用しアプリを展開
 
@@ -880,30 +881,15 @@ Dec 2022
             run: |
               docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/CS/dockerfile
               docker push ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
-
-      deploy:
-        runs-on: ubuntu-latest
-        needs: push
-
-        steps:
-          - name: Azure Login
-            uses: azure/login@v1
-            with:
-              creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-          - name: Deploy to containerapp
-            uses: azure/CLI@v1
-            with:
-              inlineScript: |
-                az config set extension.use_dynamic_install=yes_without_prompt
-                az containerapp registry set -n ca-devops-test1 -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
-                az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
+  
   ```
   </details>
 
 <br />
 
 ### Task 7: ワークフローの実行
+
+- 
 
 <br />
 
