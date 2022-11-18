@@ -668,14 +668,16 @@ Dec 2022
           
           - name: Docker build and push
             run: |
-              docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }} -f ./.docker/CS/dockerfile
-              docker push ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
+              docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/CS/dockerfile
+              docker push ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
     
     ```
 
     ※ needs フィールドの設定により build ジョブの完了を待ってから実行
 
     ※ docker コマンドでイメージの構築と Azure Container Registry へイメージをアップロード
+
+    ※ リポジトリ名は app, タグには github.sha でコミット時のハッシュ文字列を使用
 
   </details>
 
@@ -689,6 +691,20 @@ Dec 2022
 <br />
 
 ### Task 4: ワークフローの検証
+
+- GitHub リポジトリへアクセスし、追加したワークフローを実行
+
+  <img src="images/deploy-to-container-01.png" />
+
+- ワークフローが正常に完了することを確認
+
+  <img src="images/deploy-to-container-02.png" />
+
+- Azure ポータルで Azure Container Registry の管理ブレードへアクセス
+
+- "**リポジトリ**" を選択
+
+- "**app**" をクリックし、イメージがアップロードされていることを確認
 
 <br />
 

@@ -52,5 +52,5 @@ jobs:
       
       - name: Docker build and push
         run: |
-          docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }} -f ./.docker/CS/dockerfile
-          docker push ${{ secrets.REGISTRY_LOGINSERVER }}/dotnet-app:${{ github.sha }}
+          docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/CS/dockerfile
+          docker push ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
