@@ -77,7 +77,7 @@ jobs:
       - name: Deploy to containerapp
         uses: azure/container-apps-deploy-action@v0
         with:
-          acrName: ${{ secrets.REGISTRY_USERNAME }}
-          containerAppName:  ${{ github.event.inputs.containerApp }}
-          resourceGroup:  ${{ github.event.inputs.resourceGroup }}
-          imageToDeploy: ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
+          inlineScript: |
+            az config set extension.use_dynamic_install=yes_without_prompt
+            az containerapp registry set -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
+            az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
