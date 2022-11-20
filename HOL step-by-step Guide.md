@@ -745,7 +745,7 @@ Dec 2022
 
       - 地域: リソース グループと同じ地域を選択
 
-      - Container Apps 環境: 既定の設定で新規作成
+      - Container Apps 環境: 新規作成
 
     <img src="images/new-container-app-02.png" />
 
@@ -924,7 +924,7 @@ Dec 2022
 
 - ワークフローが正常に完了したことを確認
 
-  <img src="images/deploy-to-container-app-02.png" />
+  <img src="images/deploy-to-container-app-02.png" />h
 
 - 作成した Container Apps の管理ブレードへ移動
 
