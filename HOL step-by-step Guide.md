@@ -745,7 +745,33 @@ Dec 2022
 
       - 地域: リソース グループと同じ地域を選択
 
-      - Container Apps 環境: 新規作成
+      - Container Apps 環境: 新規作成をクリック
+
+        - Container Apps 環境の作成
+
+          - "**基本**"
+
+            - 環境名: 任意 (managementEnvironment-xxx)
+
+            - ゾーン冗長: 無効
+
+            <img src="images/container-apps-environment-01.png" />
+
+          - "**監視**"
+
+            - Log Analytics ワークスペース: 新規作成
+
+            <img src="images/container-apps-environment-02.png" />
+
+            ※ 既定の名前から変更する場合は、新規作成をクリックし名前を入力
+          
+          - "**ネットワーク**"
+
+            - 自分の仮想ネットワークを使用する: いいえ
+
+            <img src="images/container-apps-environment-03.png" />
+
+          - "**Create**" をクリックし、設定を確定
 
     <img src="images/new-container-app-02.png" />
 
@@ -808,12 +834,12 @@ Dec 2022
             creds: ${{ secrets.AZURE_CREDENTIALS }}
           
         - name: Deploy to containerapp
-          uses: azure/container-apps-deploy-action@v0
+          uses: azure/CLI@v1
           with:
-            acrName: ${{ secrets.REGISTRY_USERNAME }}
-            containerAppName:  ${{ github.event.inputs.containerApp }}
-            resourceGroup:  ${{ github.event.inputs.resourceGroup }}
-            imageToDeploy: ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
+            inlineScript: |
+              az config set extension.use_dynamic_install=yes_without_prompt
+              az containerapp registry set -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
+              az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
 
   ```
 
@@ -900,12 +926,12 @@ Dec 2022
             creds: ${{ secrets.AZURE_CREDENTIALS }}
           
         - name: Deploy to containerapp
-          uses: azure/container-apps-deploy-action@v0
+          uses: azure/CLI@v1
           with:
-            acrName: ${{ secrets.REGISTRY_USERNAME }}
-            containerAppName:  ${{ github.event.inputs.containerApp }}
-            resourceGroup:  ${{ github.event.inputs.resourceGroup }}
-            imageToDeploy: ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
+            inlineScript: |
+              az config set extension.use_dynamic_install=yes_without_prompt
+              az containerapp registry set -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
+              az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
 
   ```
   </details>
