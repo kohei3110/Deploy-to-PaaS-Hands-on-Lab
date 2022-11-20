@@ -15,9 +15,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\We.csproj",
-      "projectName": "We",
-      "projectPath": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\We.csproj",
+      "projectUniqueName": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\Web.csproj",
+      "projectName": "Web",
+      "projectPath": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\Web.csproj",
       "packagesPath": "C:\\Users\\hiroyay\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\obj\\",
       "projectStyle": "PackageReference",

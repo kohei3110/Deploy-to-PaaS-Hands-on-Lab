@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jaoTXhtTlTiou7Dy66R04Aghte/0HZuTI5SXHGXFnWcIc6Lav4dmkKROc53odeRKqLUajRe/Z9KeZHJZP3alZQ==",
+  "dgSpecHash": "ylNEGUIjp5mu7Gvft8yM6AJ74Tk7L9dUBDkq/wundvxYGidKkG235v5LU4mEECERl1pUcI3oYcQ7KEn7oMVnow==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\We.csproj",
+  "projectFilePath": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\Web.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

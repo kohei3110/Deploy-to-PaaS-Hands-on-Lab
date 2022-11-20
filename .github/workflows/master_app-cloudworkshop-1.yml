@@ -1,0 +1,54 @@
+name: Build and deploy ASP.Net Core app to Azure Web App - app-cloudworkshop-1
+
+on:
+  workflow_dispatch:
+
+env:
+  APP_PATH: './src/CS'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+
+      - name: Build with dotnet
+        run: dotnet build ${{ env.APP_PATH }} --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{ env.APP_PATH }}/myapp
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'app-cloudworkshop-1'
+          slot-name: 'staging'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0BDD04A2E0F04C6E86207BADE5A92749 }}
+          package: .
