@@ -75,7 +75,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         
       - name: Deploy to containerapp
-        uses: azure/container-apps-deploy-action@v0
+        uses: azure/CLI@v1
         with:
           inlineScript: |
             az config set extension.use_dynamic_install=yes_without_prompt
