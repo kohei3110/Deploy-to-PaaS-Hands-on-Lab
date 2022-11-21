@@ -16,6 +16,7 @@ on:
 env:
   APP_PATH: './src/CS'
 
+jobs:
   add-resource:
     if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
     runs-on: ubuntu-latest
