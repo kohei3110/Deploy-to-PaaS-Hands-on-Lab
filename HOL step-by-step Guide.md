@@ -1199,6 +1199,7 @@ Dec 2022
           description: 'リソース グループ名'
           required: true
           type: string
+  
   ```
 
   ※ ワークフローは手動で実行、実行時にリソース グループ名をパラメーターとして取得
@@ -1225,6 +1226,41 @@ Dec 2022
             parameters: ./templates/app-service.parameters.json
   
   ```
+
+  <details>
+  <summary>ワークフロー全文</summary>
+
+  ```
+  name: Deploy new App Service
+
+  on:
+    workflow_dispatch:
+      inputs:
+        resourceGroup:
+          description: 'リソース グループ名'
+          required: true
+          type: string
+
+  jobs:
+      runs-on: ubuntu-latest
+  
+      steps:
+        - uses: actions/checkout@v2
+  
+        - uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+  
+        - name: ARM deploy
+          uses: azure/arm-deploy@v1
+          with:
+            subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+            resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+            template: ./templates/app-service.json
+            parameters: ./templates/app-service.parameters.json
+  
+  ```
+  </details>
 
 - ワークフロー ファイル作成後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
 
