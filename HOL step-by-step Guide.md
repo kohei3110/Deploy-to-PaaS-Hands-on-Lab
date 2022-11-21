@@ -694,7 +694,26 @@ Dec 2022
 
     ※ docker コマンドでイメージの構築と Azure Container Registry へイメージをアップロード
 
+    ※ Docker ファイルは事前に準備されたものを使用
+
     ※ リポジトリ名は app, タグには github.sha でコミット時のハッシュ文字列を使用
+
+    <details>
+    <summary>dockerfile</summary>
+
+      ```
+      FROM mcr.microsoft.com/dotnet/aspnet:6.0
+      WORKDIR /app
+
+      COPY ./release .
+
+      ENTRYPOINT ["dotnet", "Web.dll"]
+      ```
+
+      ※ build ジョブで発行されたアプリケーションをイメージにコピー
+
+      ※ エントリ ポイントを定義
+    </details>
 
   </details>
 
