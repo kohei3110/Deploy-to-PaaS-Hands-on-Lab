@@ -602,7 +602,7 @@ Dec 2022
 
 - Visual Studio Code で .github/workflows に新しいワークフロー ファイル (.yml) を追加
 
-- ワークフロー名とトリガー条件を追加
+- ワークフロー名とトリガー条件を記述
 
   ```
   name: Deploy container
@@ -936,6 +936,8 @@ Dec 2022
   ```
   </details>
 
+- ワークフロー ファイル更新後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
+
 <br />
 
 ### Task 7: ワークフローの実行
@@ -1183,10 +1185,57 @@ Dec 2022
 
 - **.github/workflows** に新しいワークフロー ファイル (.yml) を追加
 
-- 
+  <img src="images/deploy-app-service-01.png" />
+
+- ワークフロー名とトリガー条件を記述
+
+  ```
+  name: Deploy new App Service
+
+  on:
+    workflow_dispatch:
+      inputs:
+        resourceGroup:
+          description: 'リソース グループ名'
+          required: true
+          type: string
+  ```
+
+  ※ ワークフローは手動で実行、実行時にリソース グループ名をパラメーターとして取得
+
+- リソースを展開するジョブを追加
+
+  ```
+  jobs:
+      runs-on: ubuntu-latest
+  
+      steps:
+        - uses: actions/checkout@v2
+  
+        - uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+  
+        - name: ARM deploy
+          uses: azure/arm-deploy@v1
+          with:
+            subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+            resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+            template: ./templates/app-service.json
+            parameters: ./templates/app-service.parameters.json
+  
+  ```
+
+- ワークフロー ファイル作成後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
 
 <br />
 
 ### Task 4: ワークフローの検証
+
+- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+
+- App Service を展開するワークフローを選択
+
+- 展開先のリソース グループの名前を入力し "**Run workflow**" をクリック
 
 <br />
