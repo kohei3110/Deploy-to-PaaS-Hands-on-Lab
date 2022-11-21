@@ -1386,6 +1386,7 @@ Dec 2022
               app-name: 'app-${{ github.event.inputs.appService }}'
               slot-name: 'Production'
               package: .
+    
     ```
 
     ※ アプリの展開はサービス プリンシパルで実行
@@ -1501,10 +1502,19 @@ Dec 2022
                 app-name: 'app-${{ github.event.inputs.appService }}'
                 slot-name: 'Production'
                 package: .
+      
       ```
       </details>
 
     </details>
 <br />
 
+- ワークフロー ファイル作成後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
+
 ### Task 6: ワークフローの実行
+
+- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+
+- App Service へアプリを展開するワークフローを選択
+
+- パラメーターを入力し "**Run workflow**" をクリック
