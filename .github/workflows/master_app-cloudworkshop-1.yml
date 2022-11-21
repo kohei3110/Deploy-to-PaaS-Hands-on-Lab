@@ -6,7 +6,6 @@ on:
 env:
   APP_PATH: './src/CS'
 
-jobs:
   build:
     runs-on: windows-latest
 
@@ -52,3 +51,4 @@ jobs:
           slot-name: 'staging'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0BDD04A2E0F04C6E86207BADE5A92749 }}
           package: .
+
