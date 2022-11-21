@@ -15,6 +15,8 @@ Dec 2022
 
 - [Exercise 4: GitHub Actions を使用した Container Apps への Web アプリの展開](#exercise-4-github-actions-を使用した-container-apps-への-web-アプリの展開)
 
+- [Exercise 5: GitHub Actions による Azure リソースの展開](#exercise-5-github-actions-による-azure-リソースの展開)
+
 <br />
 
 ## Exercise 1: 開発ツールから App Service への Web アプリの展開
@@ -1276,4 +1278,243 @@ Dec 2022
 
 - 展開先のリソース グループの名前を入力し "**Run workflow**" をクリック
 
+  <img src="images/new-arm-template-23.png" />
+
+- ワークフローが正常に完了することを確認
+
+  <img src="images/new-arm-template-24.png" />
+
+- Azure ポータルにアクセスし、指定したリソース グループ内に App Service が作成されていることを確認
+
 <br />
+
+### Task 5: アプリケーションのビルドと新しいリソースへの展開
+
+- Visual Studio Code のサイドバーで "**Explorer** を選択
+
+-  App Service へアプリを展開するワークフロー ファイルを選択
+
+- ワークフロー ファイルの編集
+
+  - workflow_dispatch トリガーにパラメーターを追加
+
+    ```
+        inputs:
+          deploy-new-resouce:
+            description: '新しい App Service を展開'
+            type: boolean
+          resourceGroup:
+            description: 'リソース グループ'
+            type: string
+          appService:
+            description: 'アプリケーション名'
+            type: string
+    
+    ```
+
+    <img src="images/update-app-service-workflow-09.png" />
+
+  - 新しい App Service を展開するジョブを追加
+
+    ```
+      add-resource:
+        if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+        runs-on: ubuntu-latest
+    
+        steps:
+          - uses: actions/checkout@v2
+    
+          - uses: azure/login@v1
+            with:
+              creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+          - name: ARM deploy
+            uses: azure/arm-deploy@v1
+            with:
+              subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+              resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+              template: ./templates/app-service.json
+              parameters: appName=${{ github.event.inputs.appService }}
+    
+    ```
+
+    ※ '新しい App Service を展開' のパラメーターが true のときのみ実行
+
+    ※ App Service 名は、パラメーター ファイルでなく、ワークフロー実行時に入力された値を使用
+
+    <img src="images/update-app-service-workflow-10.png" />
+
+  - deploy ジョブの変更
+
+    ```
+        if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
+    ```
+
+    ※ '新しい App Service を展開' のパラメーターが false のときのみ実行
+
+    <details>
+    <summary>C#</summary>
+
+    <img src="images/update-app-service-workflow-11.png" />
+    </details>
+
+  - 新しい App Service へアプリを展開するジョブを追加
+
+    <details>
+    <summary>C#</summary>
+
+    ```
+      deploy-to-new-resource:
+        if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+        runs-on: windows-latest
+        needs: [add-resource, build]
+    
+        steps:
+          - uses: azure/login@v1
+            with:
+              creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+          - name: Download artifact from build jobs
+            uses: actions/download-artifact@v2
+            with:
+              name: .net-app
+    
+          - name: Deploy to Web app
+            id: deploy-to-webAppName
+            uses: azure/webapps-deploy@v2
+            with:
+              app-name: 'app-${{ github.event.inputs.appService }}'
+              slot-name: 'Production'
+              package: .
+    
+    ```
+
+    ※ アプリの展開はサービス プリンシパルで実行
+
+      <details>
+      <summary>ワークフロー全文</summary>
+
+      ```
+      name: Build and deploy ASP.Net Core app to Azure Web App - app-cloudworkshop-1
+
+      on:
+        workflow_dispatch:
+          inputs:
+            deploy-new-resouce:
+              description: '新しい App Service を展開'
+              type: boolean
+            resourceGroup:
+              description: 'リソース グループ'
+              type: string
+            appService:
+              description: 'アプリケーション名'
+              type: string
+      
+      env:
+        APP_PATH: './src/CS'
+      
+      jobs:
+        add-resource:
+          if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+          runs-on: ubuntu-latest
+      
+          steps:
+            - uses: actions/checkout@v2
+      
+            - uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+            - name: ARM deploy
+              uses: azure/arm-deploy@v1
+              with:
+                subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+                resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+                template: ./templates/app-service.json
+                parameters: appName=${{ github.event.inputs.appService }}
+      
+        build:
+          runs-on: windows-latest
+      
+          steps:
+            - uses: actions/checkout@v2
+      
+            - name: Set up .NET Core
+              uses: actions/setup-dotnet@v1
+              with:
+                dotnet-version: '6.0.x'
+                include-prerelease: true
+
+            - name: Build with dotnet
+              run: dotnet build ${{ env.APP_PATH }} --configuration Release
+
+            - name: dotnet publish
+              run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
+      
+            - name: Upload artifact for deployment job
+              uses: actions/upload-artifact@v2
+              with:
+                name: .net-app
+                path: ${{ env.APP_PATH }}/myapp
+      
+        deploy:
+          if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
+          runs-on: windows-latest
+          needs: build      
+          environment:
+            name: 'Production'
+            url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      
+          steps:
+            - name: Download artifact from build job
+              uses: actions/download-artifact@v2
+              with:
+                name: .net-app
+      
+            - name: Deploy to Azure Web App
+              id: deploy-to-webapp
+              uses: azure/webapps-deploy@v2
+              with:
+                app-name: 'app-cloudworkshop-1'
+                slot-name: 'staging'
+                publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_xxxx }}
+                package: .
+      
+        deploy-to-new-resource:
+          if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+          runs-on: windows-latest
+          needs: [add-resource, build]
+
+          steps:
+            - uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+            - name: Download artifact from build jobs
+              uses: actions/download-artifact@v2
+              with:
+                name: .net-app
+      
+            - name: Deploy to Web app
+              id: deploy-to-webAppName
+              uses: azure/webapps-deploy@v2
+              with:
+                app-name: 'app-${{ github.event.inputs.appService }}'
+                slot-name: 'Production'
+                package: .
+      
+      ```
+      </details>
+
+    </details>
+<br />
+
+- ワークフロー ファイル作成後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
+
+### Task 6: ワークフローの実行
+
+- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+
+- App Service へアプリを展開するワークフローを選択
+
+- パラメーターを入力し "**Run workflow**" をクリック
