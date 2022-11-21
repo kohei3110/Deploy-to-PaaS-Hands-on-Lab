@@ -1518,3 +1518,17 @@ Dec 2022
 - App Service へアプリを展開するワークフローを選択
 
 - パラメーターを入力し "**Run workflow**" をクリック
+
+  <img src="images/update-app-service-workflow-12.png" />
+
+- ワークフローが正常に完了することを確認
+
+  <img src="images/update-app-service-workflow-13.png" />
+
+- Azure ポータルにアクセスし、指定したリソース グループ内に App Service が作成されていることを確認
+
+- 展開した App Service の管理ブレードへ移動し URL をクリック
+
+- 新しいタブで展開されたアプリケーションが表示されることを確認
+
+<br />
