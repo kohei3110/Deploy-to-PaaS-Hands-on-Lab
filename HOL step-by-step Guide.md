@@ -21,6 +21,8 @@ Dec 2022
 
 ## Exercise 1: 開発ツールから App Service への Web アプリの展開
 
+<img src="images/exercise-1.png" />
+
 ### Task 1: リポジトリのフォーク
 
 - Web ブラウザを起動し、"<a href="https://github.com/kohei3110/Deploy-to-PaaS-Hands-on-Lab" target="_blank">ワークショップのリポジトリ</a>" へ移動
@@ -144,27 +146,27 @@ Dec 2022
 
       - SKU とサイズ: Standard S1
 
-    <img src="images/new-app-service-02.png" />
+      <img src="images/new-app-service-02.png" />
 
   - "**デプロイ**"
 
     - 継続的デプロイ: 無効化
 
-    <img src="images/new-app-service-03.png" />
+      <img src="images/new-app-service-03.png" />
 
   - "**ネットワーク**"
 
     - ネットワーク インジェクションを有効にする: オフ
 
-    <img src="images/new-app-service-04.png" />
+      <img src="images/new-app-service-04.png" />
 
   - "**監視**"
 
     - Application Insights を有効にする: いいえ
 
-    <img src="images/new-app-service-05.png" />
+      <img src="images/new-app-service-05.png" />
 
-- "確認および作成" をクリックし、指定した内容を確認
+- "**確認および作成**" をクリックし、指定した内容を確認
 
 - "**作成**" をクリックしリソースを展開
 
@@ -243,6 +245,8 @@ Dec 2022
 <br />
 
 ## Exercise 2: GitHub Actions を使用した App Service への Web アプリの展開
+
+<img src="images/exercise-2.png" />
 
 ### Task 1: App Service への継続的デプロイの設定
 
@@ -429,6 +433,8 @@ Dec 2022
 
 ## Exercise 3: ステージング環境への展開とスワップ操作による本番環境への昇格
 
+<img src="images/exercise-3.png" />
+
 ### Task 1: ステージング環境の準備
 
 - Azure ポータルで App Service の管理ブレードへアクセス、"**デプロイ スロット**" を選択
@@ -548,6 +554,8 @@ Dec 2022
 <br />
 
 ## Exercise 4: GitHub Actions を使用した Container Apps への Web アプリの展開
+
+<img src="images/exercise-4.png" />
 
 ### Task 1: サービス プリンシパルの作成
 
@@ -686,7 +694,26 @@ Dec 2022
 
     ※ docker コマンドでイメージの構築と Azure Container Registry へイメージをアップロード
 
+    ※ Docker ファイルは事前に準備されたものを使用
+
     ※ リポジトリ名は app, タグには github.sha でコミット時のハッシュ文字列を使用
+
+    <details>
+    <summary>dockerfile</summary>
+
+      ```
+      FROM mcr.microsoft.com/dotnet/aspnet:6.0
+      WORKDIR /app
+
+      COPY ./release .
+
+      ENTRYPOINT ["dotnet", "Web.dll"]
+      ```
+
+      ※ build ジョブで発行されたアプリケーションをイメージにコピー
+
+      ※ エントリ ポイントを定義
+    </details>
 
   </details>
 
@@ -967,6 +994,8 @@ Dec 2022
 <br />
 
 ## Exercise 5: GitHub Actions による Azure リソースの展開
+
+<img src="images/exercise-5.png" />
 
 ### Task 1: ARM テンプレートの作成
 
