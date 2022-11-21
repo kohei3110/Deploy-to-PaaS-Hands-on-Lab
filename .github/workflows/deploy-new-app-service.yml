@@ -9,6 +9,7 @@ on:
         type: string
 
 jobs:
+  add-resource:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,3 +26,4 @@ jobs:
           resourceGroupName: ${{ github.event.inputs.resourceGroup }}
           template: ./templates/app-service.json
           parameters: ./templates/app-service.parameters.json
+

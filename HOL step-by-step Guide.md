@@ -1208,6 +1208,7 @@ Dec 2022
 
   ```
   jobs:
+    add-resource:
       runs-on: ubuntu-latest
   
       steps:
@@ -1242,6 +1243,7 @@ Dec 2022
           type: string
 
   jobs:
+    add-resource:
       runs-on: ubuntu-latest
   
       steps:
