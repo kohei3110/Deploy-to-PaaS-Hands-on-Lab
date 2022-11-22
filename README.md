@@ -17,7 +17,7 @@
 ┣ admin  
 ┣ images  
 ┣ src  
-┃   ┣ 言語 (各言語アプリケーションのソース コード)  
+┃   ┗ 言語 (各言語アプリケーションのソース コード)  
 ┣ templates (ARM テンプレート)  
 ┣ Before the HOL.md  
 ┣ HOL step-by-step Guide.md (ハンズオン手順書)  
