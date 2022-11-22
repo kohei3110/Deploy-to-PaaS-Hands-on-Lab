@@ -3,6 +3,7 @@
 
 ### 使用環境
 
+<img src="images/azure-resources.png" />
 
 <br />
 

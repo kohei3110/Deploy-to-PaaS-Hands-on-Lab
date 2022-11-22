@@ -5,9 +5,77 @@ Dec 2022
 
 <br />
 
+## Contents
+
+- [Self-Hosted Runner を使用したアプリケーションの展開](#appdendix-self-hosted-runner-を使用したアプリケーションの展開)
+
+  - [Task 1: App Service の受信トラフィック制御](#task-1-app-service-の受信トラフィック制御)
+
+  - [Task 2: Personal Access Token の作成](#task-2-personal-access-token-の作成)
+
+  - [Task 3: シークレットの登録](#task-3-シークレットの登録)
+
+  - [Task 4: Azure Container Instances への Self-Hosted Runner の展開](#task-4-azure-container-instances-への-self-hosted-runner-の展開)
+
+  - [Task 5: ワークフローでの Self-Hosted Runner の利用](#task-5-ワークフローでの-self-hosted-runner-の利用)
+
+<br/>
+
+<img src="images/exercise-A.png" />
+
+<br />
+
 ## Appdendix: Self-Hosted Runner を使用したアプリケーションの展開
 
 ### Task 1: App Service の受信トラフィック制御
+
+- Azure ポータルへアクセスし App Service (ステージング環境) の管理ブレードへ移動
+
+- "**ネットワーク**” を選択し "**プライベート エンドポイント**" をクリック
+
+  <img src="images/private-endpoint-01.png" />
+
+- "**＋ 追加**" をクリック
+
+  <img src="images/private-endpoint-02.png" />
+
+- 名前を入力し、サブスクリプション、仮想ネットワーク、サブネットを選択し "**OK**" をクリック
+
+  - 名前: pe-cloudworkshop-xx (xx は数字、任意の名前で OK)
+
+  - サブスクリプション: ワークショップで使用中のサブスクリプション
+
+  - 仮想ネットワーク: vnet-1
+
+  - サブネット: Subnet-3
+
+  - プライベート DNS ゾーンと統合する: はい
+
+    <img src="images/private-endpoint-03.png" />
+
+- プライベート エンドポイント作成後、"**概要**" の "**URL**" をクリック
+
+  <img src="images/app-service-swap-03.png" />
+
+- インターネットを介してアクセスできなくなったことを確認
+
+  <img src="images/private-endpoint-04.png" />
+
+- GitHub リポジトリへアクセス
+
+- App Service へアプリを展開するワークフローを実行
+
+  <img src="images/private-endpoint-05.png" />
+
+  ※ 新しいApp Service を展開はオフで実行
+
+- ワークフローがエラーで終了することを確認
+
+  <img src="images/private-endpoint-06.png" />
+
+- deploy ジョブをクリックし、エラー内容を確認
+
+  <img src="images/private-endpoint-07.png" />
 
 <br />
 
@@ -129,12 +197,24 @@ Dec 2022
   runs-on: [self-hosted, Linux, X64, container]
   ```
 
-  ※ Self-Hosted Runner の指定はラベルで実施
+  ※ Self-Hosted Runner の指定は登録時に付与したラベルで実施
 
 - アプリケーションの変更
 
 - ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
 
 - ワークフローを実行
+
+  <img src="images/private-endpoint-05.png" />
+
+- ワークフローが正常に完了したことを確認
+
+  <img src="images/self-hosted-runner-08.png" />
+
+- Azure ポータルへアクセスし App Service の管理ブレードの "**概要**" タブから "**URL**" をクリック
+
+  <img src="images/app-service-swap-03.png" />
+
+- アプリケーションせ正常に展開されていることを確認
 
 <br />
