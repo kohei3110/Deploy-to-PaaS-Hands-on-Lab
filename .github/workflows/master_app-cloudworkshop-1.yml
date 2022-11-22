@@ -62,7 +62,7 @@ jobs:
 
   deploy:
     if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
-    runs-on: windows-latest
+    runs-on: [self-hosted, Linux, X64, container]
     needs: build
     environment:
       name: 'Production'

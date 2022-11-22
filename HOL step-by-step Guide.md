@@ -547,7 +547,7 @@ Dec 2022
 
 - App Service の管理ブレードの "**概要**" タブから "**URL**" をクリック
 
-   <img src="images/update-app-service-workflow-07.png" />
+  <img src="images/app-service-swap-03.png" />
 
 - ステージング環境と本番環境が切り替わっていることを確認
 
