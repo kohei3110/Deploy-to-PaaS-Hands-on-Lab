@@ -72,5 +72,6 @@ jobs:
               --registry-username ${{ secrets.REGISTRY_USERNAME }} \
               --registry-password ${{ secrets.REGISTRY_PASSWORD }} \
               --environment-variables GH_TOKEN="${{ secrets.GH_TOKEN }}" GH_OWNER="${{ github.event.inputs.gh_owner }}" GH_REPOSITORY="${{ github.event.inputs.gh_repository }}" \
+              --restart-policy never \
               --vnet $vnetId \
               --subnet $subnetId

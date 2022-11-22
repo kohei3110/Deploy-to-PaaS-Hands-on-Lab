@@ -75,9 +75,66 @@ Dec 2022
 
     - [deploy-runner-to-aci.yml](https://github.com/kohei3110/Deploy-to-PaaS-Hands-on-Lab/blob/main/.github/workflows/deploy-runner-to-aci.yml)
 
+- ワークフローを実行
+
+  - リソース グループ名: ワークショップで使用中のリソース グループ
+
+  - 仮想ネットワーク名: vnet-1 (事前展開済みの仮想ネットワーク)
+
+  - サブネット名: Subnet-2 (仮想ネットワーク内のサブネット名)
+
+  - コンテナー グループ名: aci-runner-xx (xx は数字、任意の名前で OK)
+
+  - GitHub アカウント: 自身の GitHub アカウント名
+
+  - リポジトリ: Deploy-to-PaaS-Hands-on-Lab
+
+    <img src="images/self-hosted-runner-03.png" />
+
+- ワークフローが正常に完了することを確認
+
+  <img src="images/self-hosted-runner-04.png" />
+
+- Azure ポータルへアクセスし、Azure Container Registry の管理ブレードへ移動
+
+- "**gh_runner**" リポジトリにイメージが登録されていることを確認
+
+  <img src="images/self-hosted-runner-05.png" />
+
+- Azure Container Instances の管理ブレードへアクセス
+
+- "**コンテナー**" の "**ログ**" を確認
+
+  <img src="images/self-hosted-runner-06.png" />
+
+  ※ start.sh が実行され、runner の登録が実行されていることを確認
+
+  ※ Runner のラベルに既定の self-hosted, Linux, X64 に加えて container が追加されていることを確認
+
+- GitHub リポジトリの "**Settings**" の "**Actions**" - "**Runners**" へアクセス
+
+- Runner が登録されていることを確認
+
+  <img src="images/self-hosted-runner-07.png" />
 
 <br />
 
 ### Task 5: ワークフローでの Self-Hosted Runner の利用
+
+- App Service へアプリを展開するワークフロー ファイルを選択
+
+- deploy ジョブの実行環境を Self-Hosted Runner を使用するように変更
+
+  ```
+  runs-on: [self-hosted, Linux, X64, container]
+  ```
+
+  ※ Self-Hosted Runner の指定はラベルで実施
+
+- アプリケーションの変更
+
+- ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
+
+- ワークフローを実行
 
 <br />
