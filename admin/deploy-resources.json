@@ -149,6 +149,7 @@
                     },
                     "dependsOn": [
                         "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetwork'))]",
+                        "[resourceid('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetwork'), 'AzureBastionSubnet')]",
                         "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroup'))]"
                     ]
                 },
@@ -164,6 +165,7 @@
                     },
                     "dependsOn": [
                         "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetwork'))]",
+                        "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetwork'), parameters('subnet1'))]",
                         "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroup'))]"
                     ]
                 },
@@ -179,6 +181,7 @@
                     },
                     "dependsOn": [
                         "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetwork'))]",
+                        "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetwork'), parameters('subnet2'))]",
                         "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroup'))]"
                     ]
                 }
