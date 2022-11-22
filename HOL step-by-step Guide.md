@@ -33,7 +33,6 @@ Dec 2022
 
 - 自身のアカウントにリポジトリが複製されていることを確認
 
-
 <br />
 
 ### Task 2: 開発環境へのリポジトリのクローン
@@ -46,7 +45,7 @@ Dec 2022
 
 - Visual Studio Code を起動
 
-- Explorer を開き "**Clone Repository" をクリック
+- Explorer を開き "\*\*Clone Repository" をクリック
 
   <img src="images/github-clone-02.png" />
 
@@ -72,25 +71,25 @@ Dec 2022
   - "**Terminal**" - "**New Terminal**" を選択
 
     <img src="images/github-clone-05.png" />
-  
+
   - C# の ASP.NET Core プロジェクトのディレクトリへ移動
 
     ```
     cd src/CS
     ```
-  
+
   - アプリケーションを実行
 
     ```
     dotnet run
     ```
-  
+
   - ターミナルに以下のようなメッセージが表示（Web アプリをテストする URL が https\://localhost:{port} で表示）
 
     HTTPS URL を Ctrl キーを押しながらクリック
 
     <img src="images/github-clone-06.png" />
-  
+
   - Web ブラウザが起動し、アプリケーションを表示
 
     <img src="images/github-clone-07.png" />
@@ -101,7 +100,7 @@ Dec 2022
 
   <details>
   <summary>他の言語</summary>
-  
+
   </details>
 
 <br />
@@ -184,7 +183,7 @@ Dec 2022
   - "**Terminal**" - "**New Terminal**" を選択
 
     <img src="images/github-clone-05.png" />
-  
+
   - C# の ASP.NET Core プロジェクトのディレクトリへ移動
 
     ```
@@ -198,11 +197,11 @@ Dec 2022
     ```
 
     <img src="images/dotnet-publish-01.png" />
-  
+
   - bin フォルダー内に Publish サブフォルダーが生成
 
     ※ Publish フォルダー内には App Service に展開するファイルが格納
-  
+
     <img src="images/dotnet-publish-02.png" />
 
   </details>
@@ -343,7 +342,7 @@ Dec 2022
     jobs:
       build:
         runs-on: windows-latest
-    
+
         steps:
           - uses: actions/checkout@v2
 
@@ -352,13 +351,13 @@ Dec 2022
             with:
               dotnet-version: '6.0.x'
               include-prerelease: true
-    
+
           - name: Build with dotnet
             run: dotnet build ${{ env.APP_PATH }} --configuration Release
-    
+
           - name: dotnet publish
             run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
-    
+
           - name: Upload artifact for deployment job
             uses: actions/upload-artifact@v2
             with:
@@ -385,7 +384,7 @@ Dec 2022
   - src/CS/Views/Home の Index.cshtml を選択
 
     <img src="images/update-app-01.png" />
-  
+
   - エディタでバージョン番号を変更
 
     <img src="images/update-app-02.png" />
@@ -409,7 +408,7 @@ Dec 2022
 
 ### Task 4: ワークフローの実行
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - アプリを展開するワークフローを選択
 
@@ -493,7 +492,7 @@ Dec 2022
   - src/CS/Views/Home の Index.cshtml を選択
 
     <img src="images/update-app-01.png" />
-  
+
   - エディタでバージョン番号を変更
 
     <img src="images/app-service-staging-slot-06.png" />
@@ -517,7 +516,7 @@ Dec 2022
 
 ### Task 4: ワークフローの実行
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - アプリを展開するワークフローを選択
 
@@ -591,13 +590,13 @@ Dec 2022
 
 - "**Secrets**" - "**Actions**" に次のシークレットを登録
 
-  | シークレット名 | 値 |
-  | ---- | ---- |
-  | AZURE_CREDENTIALS | サービス プリンシパル作成時に出力された JSON 全体 |
-  | REGISTRY_LOGINSERVER | Azure Container Registry のログイン サーバー名 |
-  | REGISTRY_USERNAME | Azure Container Registry の管理者のユーザー名 |
-  | REGISTRY_PASSWORD | Azure Container Registry の管理者のパスワード |
-  | AZURE_SUBSCRIPTION | サービス プリンシパルの作成時に出力された JSON 内の subscriptionId |
+  | シークレット名       | 値                                                                 |
+  | -------------------- | ------------------------------------------------------------------ |
+  | AZURE_CREDENTIALS    | サービス プリンシパル作成時に出力された JSON 全体                  |
+  | REGISTRY_LOGINSERVER | Azure Container Registry のログイン サーバー名                     |
+  | REGISTRY_USERNAME    | Azure Container Registry の管理者のユーザー名                      |
+  | REGISTRY_PASSWORD    | Azure Container Registry の管理者のパスワード                      |
+  | AZURE_SUBSCRIPTION   | サービス プリンシパルの作成時に出力された JSON 内の subscriptionId |
 
   <img src="images/action-secret-2.png" />
 
@@ -606,7 +605,6 @@ Dec 2022
     <img src="images/acr-login-server.png" />
 
     ※ 管理者ユーザーを "**有効**" に設定
-  
 
 ### Task 3: ワークフローの作成
 
@@ -643,19 +641,19 @@ Dec 2022
             with:
               dotnet-version: '6.0.x'
               include-prerelease: true
-          
+
           - name: Build with dotnet
             run: dotnet build ${{ env.APP_PATH }} --configuration Release
-          
+
           - name: dotnet publish
             run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
-          
+
           - name: Upload artifact for deployment job
             uses: actions/upload-artifact@v2
             with:
               name: .net-app
               path: ${{ env.APP_PATH }}/myapp
-    
+
     ```
 
     ※ App Service への展開を行うワークフローの build ジョブと同じ、環境変数はジョブ内で定義
@@ -666,7 +664,7 @@ Dec 2022
       push:
         runs-on: ubuntu-latest
         needs: build
-      
+
         steps:
           - uses: actions/checkout@v2
 
@@ -675,19 +673,19 @@ Dec 2022
             with:
               name: .net-app
               path: release
-          
+
           - name: Login via Azure Container Registry
             uses: azure/docker-login@v1
             with:
               login-server: ${{ secrets.REGISTRY_LOGINSERVER }}
               username: ${{ secrets.REGISTRY_USERNAME }}
               password: ${{ secrets.REGISTRY_PASSWORD }}
-          
+
           - name: Docker build and push
             run: |
               docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/CS/dockerfile
               docker push ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
-    
+
     ```
 
     ※ needs フィールドの設定により build ジョブの完了を待ってから実行
@@ -701,18 +699,18 @@ Dec 2022
     <details>
     <summary>dockerfile</summary>
 
-      ```
-      FROM mcr.microsoft.com/dotnet/aspnet:6.0
-      WORKDIR /app
+    ```
+    FROM mcr.microsoft.com/dotnet/aspnet:6.0
+    WORKDIR /app
 
-      COPY ./release .
+    COPY ./release .
 
-      ENTRYPOINT ["dotnet", "Web.dll"]
-      ```
+    ENTRYPOINT ["dotnet", "Web.dll"]
+    ```
 
-      ※ build ジョブで発行されたアプリケーションをイメージにコピー
+    ※ build ジョブで発行されたアプリケーションをイメージにコピー
 
-      ※ エントリ ポイントを定義
+    ※ エントリ ポイントを定義
     </details>
 
   </details>
@@ -769,7 +767,7 @@ Dec 2022
       - **リソース グループ**: 展開先のリソース グループ
 
       - **コンテナー アプリ名**: 任意 (小文字の英数字、ハイフンを使用可で 32 文字以下)
-    
+
     - Container Apps 環境
 
       - **地域**: リソース グループと同じ地域を選択
@@ -793,7 +791,7 @@ Dec 2022
             <img src="images/container-apps-environment-02.png" />
 
             ※ 既定の名前から変更する場合は、新規作成をクリックし名前を入力
-          
+
           - "**ネットワーク**"
 
             - **自分の仮想ネットワークを使用する**: いいえ
@@ -811,7 +809,7 @@ Dec 2022
     - ** クイック スタート イメージ**: Simple hello world container (既定)
 
     <img src="images/new-container-app-03.png" />
-  
+
   - "**確認と作成** をクリック
 
   - 指定した内容を確認し "**作成**" をクリック
@@ -846,7 +844,7 @@ Dec 2022
           description: 'コンテナー アプリ名'
           required: true
           type: string
-  
+
   ```
 
 - Container Apps へアプリを展開するジョブを追加
@@ -861,7 +859,7 @@ Dec 2022
           uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+
         - name: Deploy to containerapp
           uses: azure/CLI@v1
           with:
@@ -906,23 +904,23 @@ Dec 2022
           with:
             dotnet-version: '6.0.x'
             include-prerelease: true
-          
+
         - name: Build with dotnet
           run: dotnet build ${{ env.APP_PATH }} --configuration Release
-          
+
         - name: dotnet publish
           run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
-          
+
         - name: Upload artifact for deployment job
           uses: actions/upload-artifact@v2
           with:
             name: .net-app
             path: ${{ env.APP_PATH }}/myapp
-    
+
     push:
       runs-on: ubuntu-latest
       needs: build
-      
+
       steps:
         - uses: actions/checkout@v2
 
@@ -931,19 +929,19 @@ Dec 2022
           with:
             name: .net-app
             path: release
-          
+
         - name: Login via Azure Container Registry
           uses: azure/docker-login@v1
           with:
             login-server: ${{ secrets.REGISTRY_LOGINSERVER }}
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
-          
+
         - name: Docker build and push
           run: |
             docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/CS/dockerfile
             docker push ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
-  
+
     deploy:
       runs-on: ubuntu-latest
       needs: push
@@ -953,7 +951,7 @@ Dec 2022
           uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+
         - name: Deploy to containerapp
           uses: azure/CLI@v1
           with:
@@ -963,6 +961,7 @@ Dec 2022
               az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
 
   ```
+
   </details>
 
 - ワークフロー ファイル更新後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
@@ -971,7 +970,7 @@ Dec 2022
 
 ### Task 7: ワークフローの実行
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - Container Apps へアプリを展開するワークフローを選択
 
@@ -981,7 +980,7 @@ Dec 2022
 
 - ワークフローが正常に完了したことを確認
 
-  <img src="images/deploy-to-container-app-02.png" />h
+  <img src="images/deploy-to-container-app-02.png" />
 
 - 作成した Container Apps の管理ブレードへ移動
 
@@ -1066,7 +1065,7 @@ Dec 2022
   ※ パラメーターで指定された値に "**app-**" の接頭語を付与
 
 - "**resources**" フィールドの [] の内で Enter キーを押下
-  
+
   "**{**" を入力すると候補が表示されるため "**type** を選択
 
   <img src="images/new-arm-template-12.png" />
@@ -1119,66 +1118,66 @@ Dec 2022
               }
           }
   ```
-  
+
   <img src="images/new-arm-template-17.png" />
 
     <details>
     <summary>ARM テンプレート全文</summary>
 
-    ```
-    {
-        "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-        "contentVersion": "1.0.0.0",
-        "parameters": {
-            "appName": {
-                "type": "string",
-                "metadata": {
-                    "description": "Web アプリ名 (App Service には app-, Plan には asp- の接頭語が付きます)"
-                }
-            }
-        },
-        "functions": [],
-        "variables": {
-            "appServicePlan": "[concat('asp-', parameters('appName'))]",
-            "appService": "[concat('app-', parameters('appName'))]"
-        },
-        "resources": [
-            {
-                "type": "Microsoft.Web/serverfarms",
-                "apiVersion": "2022-03-01",
-                "name": "[variables('appServicePlan')]",
-                "location": "[resourceGroup().location]",
-                "sku": {
-                    "name": "S1",
-                    "tier": "Standard"
-                }
-            },
-            {
-                "type": "Microsoft.Web/sites",
-                "apiVersion": "2022-03-01",
-                "name": "[variables('appService')]",
-                "location": "[resourceGroup().location]",
-                "dependsOn": [
-                    "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
-                ],
-                "properties": {
-                    "siteConfig": {
-                        "metadata": [
-                            {
-                                "name": "CURRENT_STACK",
-                                "value": "dotnet"
-                            }
-                        ],
-                        "netFrameworkVersion": "v6.0"
-                    },
-                    "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
-                    "httpsOnly": true
-                }
-            }
-        ],
-        "outputs": {}
-    }
-    ```
+  ```
+  {
+      "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+          "appName": {
+              "type": "string",
+              "metadata": {
+                  "description": "Web アプリ名 (App Service には app-, Plan には asp- の接頭語が付きます)"
+              }
+          }
+      },
+      "functions": [],
+      "variables": {
+          "appServicePlan": "[concat('asp-', parameters('appName'))]",
+          "appService": "[concat('app-', parameters('appName'))]"
+      },
+      "resources": [
+          {
+              "type": "Microsoft.Web/serverfarms",
+              "apiVersion": "2022-03-01",
+              "name": "[variables('appServicePlan')]",
+              "location": "[resourceGroup().location]",
+              "sku": {
+                  "name": "S1",
+                  "tier": "Standard"
+              }
+          },
+          {
+              "type": "Microsoft.Web/sites",
+              "apiVersion": "2022-03-01",
+              "name": "[variables('appService')]",
+              "location": "[resourceGroup().location]",
+              "dependsOn": [
+                  "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
+              ],
+              "properties": {
+                  "siteConfig": {
+                      "metadata": [
+                          {
+                              "name": "CURRENT_STACK",
+                              "value": "dotnet"
+                          }
+                      ],
+                      "netFrameworkVersion": "v6.0"
+                  },
+                  "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+                  "httpsOnly": true
+              }
+          }
+      ],
+      "outputs": {}
+  }
+  ```
 
     </details>
 
@@ -1230,7 +1229,7 @@ Dec 2022
           description: 'リソース グループ名'
           required: true
           type: string
-  
+
   ```
 
   ※ ワークフローは手動で実行、実行時にリソース グループ名をパラメーターとして取得
@@ -1241,14 +1240,14 @@ Dec 2022
   jobs:
     add-resource:
       runs-on: ubuntu-latest
-  
+
       steps:
         - uses: actions/checkout@v2
-  
+
         - uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-  
+
         - name: ARM deploy
           uses: azure/arm-deploy@v1
           with:
@@ -1256,7 +1255,7 @@ Dec 2022
             resourceGroupName: ${{ github.event.inputs.resourceGroup }}
             template: ./templates/app-service.json
             parameters: ./templates/app-service.parameters.json
-  
+
   ```
 
   <details>
@@ -1276,14 +1275,14 @@ Dec 2022
   jobs:
     add-resource:
       runs-on: ubuntu-latest
-  
+
       steps:
         - uses: actions/checkout@v2
-  
+
         - uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-  
+
         - name: ARM deploy
           uses: azure/arm-deploy@v1
           with:
@@ -1291,8 +1290,9 @@ Dec 2022
             resourceGroupName: ${{ github.event.inputs.resourceGroup }}
             template: ./templates/app-service.json
             parameters: ./templates/app-service.parameters.json
-  
+
   ```
+
   </details>
 
 - ワークフロー ファイル作成後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
@@ -1301,7 +1301,7 @@ Dec 2022
 
 ### Task 4: ワークフローの検証
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - App Service を展開するワークフローを選択
 
@@ -1321,7 +1321,7 @@ Dec 2022
 
 - Visual Studio Code のサイドバーで "**Explorer** を選択
 
--  App Service へアプリを展開するワークフロー ファイルを選択
+- App Service へアプリを展開するワークフロー ファイルを選択
 
 - ワークフロー ファイルの編集
 
@@ -1338,7 +1338,7 @@ Dec 2022
           appService:
             description: 'アプリケーション名'
             type: string
-    
+
     ```
 
     <img src="images/update-app-service-workflow-09.png" />
@@ -1349,14 +1349,14 @@ Dec 2022
       add-resource:
         if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
         runs-on: ubuntu-latest
-    
+
         steps:
           - uses: actions/checkout@v2
-    
+
           - uses: azure/login@v1
             with:
               creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
+
           - name: ARM deploy
             uses: azure/arm-deploy@v1
             with:
@@ -1364,7 +1364,7 @@ Dec 2022
               resourceGroupName: ${{ github.event.inputs.resourceGroup }}
               template: ./templates/app-service.json
               parameters: appName=${{ github.event.inputs.appService }}
-    
+
     ```
 
     ※ '新しい App Service を展開' のパラメーターが true のときのみ実行
@@ -1389,160 +1389,161 @@ Dec 2022
 
   - 新しい App Service へアプリを展開するジョブを追加
 
-    <details>
-    <summary>C#</summary>
+        <details>
+        <summary>C#</summary>
 
-    ```
-      deploy-to-new-resource:
-        if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
-        runs-on: windows-latest
-        needs: [add-resource, build]
-    
-        steps:
-          - uses: azure/login@v1
-            with:
-              creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-          - name: Download artifact from build jobs
-            uses: actions/download-artifact@v2
-            with:
-              name: .net-app
-    
-          - name: Deploy to Web app
-            id: deploy-to-webAppName
-            uses: azure/webapps-deploy@v2
-            with:
-              app-name: 'app-${{ github.event.inputs.appService }}'
-              slot-name: 'Production'
-              package: .
-    
-    ```
+        ```
+          deploy-to-new-resource:
+            if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+            runs-on: windows-latest
+            needs: [add-resource, build]
 
-    ※ アプリの展開はサービス プリンシパルで実行
+            steps:
+              - uses: azure/login@v1
+                with:
+                  creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      <details>
-      <summary>ワークフロー全文</summary>
+              - name: Download artifact from build jobs
+                uses: actions/download-artifact@v2
+                with:
+                  name: .net-app
 
-      ```
-      name: Build and deploy ASP.Net Core app to Azure Web App - app-cloudworkshop-1
+              - name: Deploy to Web app
+                id: deploy-to-webAppName
+                uses: azure/webapps-deploy@v2
+                with:
+                  app-name: 'app-${{ github.event.inputs.appService }}'
+                  slot-name: 'Production'
+                  package: .
 
-      on:
-        workflow_dispatch:
-          inputs:
-            deploy-new-resouce:
-              description: '新しい App Service を展開'
-              type: boolean
-            resourceGroup:
-              description: 'リソース グループ'
-              type: string
-            appService:
-              description: 'アプリケーション名'
-              type: string
-      
-      env:
-        APP_PATH: './src/CS'
-      
-      jobs:
-        add-resource:
-          if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
-          runs-on: ubuntu-latest
-      
-          steps:
-            - uses: actions/checkout@v2
-      
-            - uses: azure/login@v1
-              with:
-                creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
-            - name: ARM deploy
-              uses: azure/arm-deploy@v1
-              with:
-                subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-                resourceGroupName: ${{ github.event.inputs.resourceGroup }}
-                template: ./templates/app-service.json
-                parameters: appName=${{ github.event.inputs.appService }}
-      
-        build:
-          runs-on: windows-latest
-      
-          steps:
-            - uses: actions/checkout@v2
-      
-            - name: Set up .NET Core
-              uses: actions/setup-dotnet@v1
-              with:
-                dotnet-version: '6.0.x'
-                include-prerelease: true
+        ```
 
-            - name: Build with dotnet
-              run: dotnet build ${{ env.APP_PATH }} --configuration Release
+        ※ アプリの展開はサービス プリンシパルで実行
 
-            - name: dotnet publish
-              run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
-      
-            - name: Upload artifact for deployment job
-              uses: actions/upload-artifact@v2
-              with:
-                name: .net-app
-                path: ${{ env.APP_PATH }}/myapp
-      
-        deploy:
-          if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
-          runs-on: windows-latest
-          needs: build      
-          environment:
-            name: 'Production'
-            url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-      
-          steps:
-            - name: Download artifact from build job
-              uses: actions/download-artifact@v2
-              with:
-                name: .net-app
-      
-            - name: Deploy to Azure Web App
-              id: deploy-to-webapp
-              uses: azure/webapps-deploy@v2
-              with:
-                app-name: 'app-cloudworkshop-1'
-                slot-name: 'staging'
-                publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_xxxx }}
-                package: .
-      
-        deploy-to-new-resource:
-          if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
-          runs-on: windows-latest
-          needs: [add-resource, build]
+          <details>
+          <summary>ワークフロー全文</summary>
 
-          steps:
-            - uses: azure/login@v1
-              with:
-                creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
-            - name: Download artifact from build jobs
-              uses: actions/download-artifact@v2
-              with:
-                name: .net-app
-      
-            - name: Deploy to Web app
-              id: deploy-to-webAppName
-              uses: azure/webapps-deploy@v2
-              with:
-                app-name: 'app-${{ github.event.inputs.appService }}'
-                slot-name: 'Production'
-                package: .
-      
-      ```
-      </details>
+          ```
+          name: Build and deploy ASP.Net Core app to Azure Web App - app-cloudworkshop-1
 
-    </details>
-<br />
+          on:
+            workflow_dispatch:
+              inputs:
+                deploy-new-resouce:
+                  description: '新しい App Service を展開'
+                  type: boolean
+                resourceGroup:
+                  description: 'リソース グループ'
+                  type: string
+                appService:
+                  description: 'アプリケーション名'
+                  type: string
+
+          env:
+            APP_PATH: './src/CS'
+
+          jobs:
+            add-resource:
+              if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+              runs-on: ubuntu-latest
+
+              steps:
+                - uses: actions/checkout@v2
+
+                - uses: azure/login@v1
+                  with:
+                    creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+                - name: ARM deploy
+                  uses: azure/arm-deploy@v1
+                  with:
+                    subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+                    resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+                    template: ./templates/app-service.json
+                    parameters: appName=${{ github.event.inputs.appService }}
+
+            build:
+              runs-on: windows-latest
+
+              steps:
+                - uses: actions/checkout@v2
+
+                - name: Set up .NET Core
+                  uses: actions/setup-dotnet@v1
+                  with:
+                    dotnet-version: '6.0.x'
+                    include-prerelease: true
+
+                - name: Build with dotnet
+                  run: dotnet build ${{ env.APP_PATH }} --configuration Release
+
+                - name: dotnet publish
+                  run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
+
+                - name: Upload artifact for deployment job
+                  uses: actions/upload-artifact@v2
+                  with:
+                    name: .net-app
+                    path: ${{ env.APP_PATH }}/myapp
+
+            deploy:
+              if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
+              runs-on: windows-latest
+              needs: build
+              environment:
+                name: 'Production'
+                url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+              steps:
+                - name: Download artifact from build job
+                  uses: actions/download-artifact@v2
+                  with:
+                    name: .net-app
+
+                - name: Deploy to Azure Web App
+                  id: deploy-to-webapp
+                  uses: azure/webapps-deploy@v2
+                  with:
+                    app-name: 'app-cloudworkshop-1'
+                    slot-name: 'staging'
+                    publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_xxxx }}
+                    package: .
+
+            deploy-to-new-resource:
+              if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+              runs-on: windows-latest
+              needs: [add-resource, build]
+
+              steps:
+                - uses: azure/login@v1
+                  with:
+                    creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+                - name: Download artifact from build jobs
+                  uses: actions/download-artifact@v2
+                  with:
+                    name: .net-app
+
+                - name: Deploy to Web app
+                  id: deploy-to-webAppName
+                  uses: azure/webapps-deploy@v2
+                  with:
+                    app-name: 'app-${{ github.event.inputs.appService }}'
+                    slot-name: 'Production'
+                    package: .
+
+          ```
+          </details>
+
+        </details>
+
+    <br />
 
 - ワークフロー ファイル作成後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
 
 ### Task 6: ワークフローの実行
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - App Service へアプリを展開するワークフローを選択
 
