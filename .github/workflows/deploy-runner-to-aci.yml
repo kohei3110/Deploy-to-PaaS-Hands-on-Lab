@@ -3,10 +3,6 @@ name: Create a GitHub Self-Hosted runner container
 on:
   workflow_dispatch:
     inputs:
-      deploy-aci:
-        description: 'Azure Container Instances の展開'
-        required: true
-        type: boolean
       resourceGroup:
         description: 'リソース グループ名'
         required: false
@@ -52,7 +48,6 @@ jobs:
           docker push ${{ secrets.REGISTRY_LOGINSERVER }}/gh_runner:${{ github.sha }}
           
   deploy-new-aci:
-    if: ${{ github.event.inputs.deploy-aci == 'true' }}
     runs-on: ubuntu-latest
     needs: build-and-push-image
 
