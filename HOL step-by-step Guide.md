@@ -124,45 +124,45 @@ Dec 2022
 
     - プロジェクトの詳細
 
-      - サブスクリプション: ワークショップで使用中のサブスクリプション
+      - **サブスクリプション**: ワークショップで使用中のサブスクリプション
 
-      - リソース グループ: 展開先のリソース グループ
+      - **リソース グループ**: 展開先のリソース グループ
 
     - インスタンスの詳細
 
-      - 名前: 一意となる名前を入力
+      - **名前**: 一意となる名前を入力
 
-      - 公開: コード
+      - **公開**: コード
 
-      - ランタイム スタック: 展開するアプリのランタイムを選択
+      - **ランタイム スタック**: 展開するアプリのランタイムを選択
 
-      - オペレーティング システム: Windows
+      - **オペレーティング システム**: Windows
 
-      - 地域: リソース グループと同じ地域を選択
+      - **地域**: リソース グループと同じ地域を選択
 
     - App Service プラン
 
-      - プラン: 新規作成（既定の名前で OK）
+      - **プラン**: 新規作成（既定の名前で OK）
 
-      - SKU とサイズ: Standard S1
+      - **SKU とサイズ**: Standard S1
 
       <img src="images/new-app-service-02.png" />
 
   - "**デプロイ**"
 
-    - 継続的デプロイ: 無効化
+    - **継続的デプロイ**: 無効化
 
       <img src="images/new-app-service-03.png" />
 
   - "**ネットワーク**"
 
-    - ネットワーク インジェクションを有効にする: オフ
+    - **ネットワーク インジェクションを有効にする**: オフ
 
       <img src="images/new-app-service-04.png" />
 
   - "**監視**"
 
-    - Application Insights を有効にする: いいえ
+    - **Application Insights を有効にする**: いいえ
 
       <img src="images/new-app-service-05.png" />
 
@@ -268,13 +268,13 @@ Dec 2022
 
 - GitHub リポジトリの選択
 
-  - 組織: 自身のアカウント
+  - **組織**: 自身のアカウント
 
-  - リポジトリ: Deploy-to-PaaS-Hands-on-Lab
+  - **リポジトリ**: Deploy-to-PaaS-Hands-on-Lab
 
-  - ブランチ: main
+  - **ブランチ**: main
 
-  - ワークフロー オプション: ワークフローの追加
+  - **ワークフロー オプション**: ワークフローの追加
 
     <img src="images/app-service-deploy-center-04.png" />
 
@@ -764,31 +764,31 @@ Dec 2022
 
     - プロジェクトの詳細
 
-      - サブスクリプション: ワークショップで使用中のサブスクリプション
+      - **サブスクリプション**: ワークショップで使用中のサブスクリプション
 
-      - リソース グループ: 展開先のリソース グループ
+      - **リソース グループ**: 展開先のリソース グループ
 
-      - コンテナー アプリ名: 任意 (小文字の英数字、ハイフンを使用可で 32 文字以下)
+      - **コンテナー アプリ名**: 任意 (小文字の英数字、ハイフンを使用可で 32 文字以下)
     
     - Container Apps 環境
 
-      - 地域: リソース グループと同じ地域を選択
+      - **地域**: リソース グループと同じ地域を選択
 
-      - Container Apps 環境: 新規作成をクリック
+      - **Container Apps 環境**: 新規作成をクリック
 
         - Container Apps 環境の作成
 
           - "**基本**"
 
-            - 環境名: 任意 (managementEnvironment-xxx)
+            - **環境名**: 任意 (managementEnvironment-xxx)
 
-            - ゾーン冗長: 無効
+            - **ゾーン冗長**: 無効
 
             <img src="images/container-apps-environment-01.png" />
 
           - "**監視**"
 
-            - Log Analytics ワークスペース: 新規作成
+            - **Log Analytics ワークスペース**: 新規作成
 
             <img src="images/container-apps-environment-02.png" />
 
@@ -796,7 +796,7 @@ Dec 2022
           
           - "**ネットワーク**"
 
-            - 自分の仮想ネットワークを使用する: いいえ
+            - **自分の仮想ネットワークを使用する**: いいえ
 
             <img src="images/container-apps-environment-03.png" />
 
@@ -806,9 +806,9 @@ Dec 2022
 
   - "**アプリ設定**"
 
-    - クイック スタート イメージを使用する: オン (既定)
+    - **クイック スタート イメージを使用する**: オン (既定)
 
-    - クリック スタート イメージ: Simple hello world container (既定)
+    - ** クイック スタート イメージ**: Simple hello world container (既定)
 
     <img src="images/new-container-app-03.png" />
   

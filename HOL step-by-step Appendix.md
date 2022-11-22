@@ -41,15 +41,15 @@ Dec 2022
 
 - 名前を入力し、サブスクリプション、仮想ネットワーク、サブネットを選択し "**OK**" をクリック
 
-  - 名前: pe-cloudworkshop-xx (xx は数字、任意の名前で OK)
+  - **名前**: pe-cloudworkshop-xx (xx は数字、任意の名前で OK)
 
-  - サブスクリプション: ワークショップで使用中のサブスクリプション
+  - **サブスクリプション**: ワークショップで使用中のサブスクリプション
 
-  - 仮想ネットワーク: vnet-1
+  - **仮想ネットワーク**: vnet-1
 
-  - サブネット: Subnet-3
+  - **サブネット**: Subnet-3
 
-  - プライベート DNS ゾーンと統合する: はい
+  - **プライベート DNS ゾーンと統合する**: はい
 
     <img src="images/private-endpoint-03.png" />
 
@@ -91,11 +91,11 @@ Dec 2022
 
 - トークンの説明、有効期間、権限スコープを設定
 
-  - Note:: Setup environment (任意)
+  - **Note**:: Setup environment (任意)
 
-  - Expiration: 7 days (任意)
+  - **Expiration**: 7 days (任意)
 
-  - Select scopes: repo と admin:org の read:org にチェック
+  - **Select scopes**: repo と admin:org の read:org にチェック
 
 - "**Generate token** をクリックし、トークンを作成
 
@@ -113,9 +113,9 @@ Dec 2022
 
 - 登録する内容を入力
 
-  - Name: GH_TOKEN
+  - **Name**: GH_TOKEN
 
-  - Secret: 発行した Personal access tokens
+  - **Secret**: 発行した Personal access tokens
 
     <img src="images/new-actions-secret-02.png" />
 
@@ -145,17 +145,17 @@ Dec 2022
 
 - ワークフローを実行
 
-  - リソース グループ名: ワークショップで使用中のリソース グループ
+  - **リソース グループ名**: ワークショップで使用中のリソース グループ
 
-  - 仮想ネットワーク名: vnet-1 (事前展開済みの仮想ネットワーク)
+  - **仮想ネットワーク名**: vnet-1 (事前展開済みの仮想ネットワーク)
 
-  - サブネット名: Subnet-2 (仮想ネットワーク内のサブネット名)
+  - **サブネット名**: Subnet-2 (仮想ネットワーク内のサブネット名)
 
-  - コンテナー グループ名: aci-runner-xx (xx は数字、任意の名前で OK)
+  - **コンテナー グループ名**: aci-runner-xx (xx は数字、任意の名前で OK)
 
-  - GitHub アカウント: 自身の GitHub アカウント名
+  - **GitHub アカウント**: 自身の GitHub アカウント名
 
-  - リポジトリ: Deploy-to-PaaS-Hands-on-Lab
+  - **リポジトリ**: Deploy-to-PaaS-Hands-on-Lab
 
     <img src="images/self-hosted-runner-03.png" />
 
