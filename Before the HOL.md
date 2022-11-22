@@ -46,6 +46,8 @@ Dec 2022
 
 ※ 選択したリソース グループのリージョンにすべてのリソースを展開
 
+<br />
+
 ### 展開後のリソース
 
 <img src="images/azure-resources.png" />
