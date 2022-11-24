@@ -46,6 +46,10 @@ Dec 2022
 
 - Visual Studio Code を起動
 
+- "**Terminal**" - "**New Terminal**" を選択し、ターミナルを表示
+
+- 
+
 - Explorer を開き "**Clone Repository" をクリック
 
   <img src="images/github-clone-02.png" />
