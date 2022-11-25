@@ -33,7 +33,6 @@ Dec 2022
 
 - 自身のアカウントにリポジトリが複製されていることを確認
 
-
 <br />
 
 ### Task 2: 開発環境へのリポジトリのクローン
@@ -68,7 +67,7 @@ Dec 2022
 
     ※ {Email Address} を使用するメール アドレスに変更
 
-- Explorer を開き "**Clone Repository" をクリック
+- サイドバーから Explorer を選択し "**Clone Repository" をクリック
 
   <img src="images/github-clone-02.png" />
 
@@ -311,6 +310,10 @@ Dec 2022
 - .github/workflows に App Service の設定によりワークフロー ファイル (.yml) が追加されていることを確認
 
   <img src="images/app-service-workflow-01.png" />
+
+  ※ ファイル名は {ブランチ名}_{App Service 名}.yml
+
+  ※ ブランチ名が "**main**"、App Service 名が "**app-workshop-1**" のとき、ファイルは "**main_app-workshop-1.yml**" の名前で生成
 
 - "**Settings**" タブの "**Secrets**" - "**Actions**" を選択
 
