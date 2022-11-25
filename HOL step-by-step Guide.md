@@ -46,6 +46,28 @@ Dec 2022
 
 - Visual Studio Code を起動
 
+- "**Terminal**" - "**New Terminal**" を選択し、ターミナルを表示
+
+  <img src="images/git-config-01.png" />
+
+- Git の初期設定を実行
+
+  - ユーザー名の設定
+
+    ```
+    it config --global user.name "{User Name}"
+    ```
+
+    ※ {User Name} を自身の名前に変更
+  
+  - Email アドレスの設定
+
+    ```
+    git config --global user.email {Email Address}
+    ```
+
+    ※ {Email Address} を使用するメール アドレスに変更
+
 - Explorer を開き "**Clone Repository" をクリック
 
   <img src="images/github-clone-02.png" />
