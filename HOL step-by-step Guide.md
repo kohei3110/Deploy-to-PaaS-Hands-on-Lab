@@ -33,7 +33,6 @@ Dec 2022
 
 - 自身のアカウントにリポジトリが複製されていることを確認
 
-
 <br />
 
 ### Task 2: 開発環境へのリポジトリのクローン
@@ -46,7 +45,29 @@ Dec 2022
 
 - Visual Studio Code を起動
 
-- Explorer を開き "**Clone Repository" をクリック
+- "**Terminal**" - "**New Terminal**" を選択し、ターミナルを表示
+
+  <img src="images/git-config-01.png" />
+
+- Git の初期設定を実行
+
+  - ユーザー名の設定
+
+    ```
+    it config --global user.name "{User Name}"
+    ```
+
+    ※ {User Name} を自身の名前に変更
+  
+  - Email アドレスの設定
+
+    ```
+    git config --global user.email {Email Address}
+    ```
+
+    ※ {Email Address} を使用するメール アドレスに変更
+
+- サイドバーから Explorer を選択し "**Clone Repository" をクリック
 
   <img src="images/github-clone-02.png" />
 
@@ -289,6 +310,10 @@ Dec 2022
 - .github/workflows に App Service の設定によりワークフロー ファイル (.yml) が追加されていることを確認
 
   <img src="images/app-service-workflow-01.png" />
+
+  ※ ファイル名は {ブランチ名}_{App Service 名}.yml
+
+  ※ ブランチ名が "**main**"、App Service 名が "**app-workshop-1**" のとき、ファイルは "**main_app-workshop-1.yml**" の名前で生成
 
 - "**Settings**" タブの "**Secrets**" - "**Actions**" を選択
 
