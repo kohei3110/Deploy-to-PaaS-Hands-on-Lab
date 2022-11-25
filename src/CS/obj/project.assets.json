@@ -8,34 +8,24 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\hiroyay\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "/Users/koheisaito/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\Web.csproj",
+      "projectUniqueName": "/Users/koheisaito/Library/CloudStorage/OneDrive-Microsoft/Documents/my/demos/CloudWorkshop/Deploy-to-PaaS-Hands-on-Lab/src/CS/Web.csproj",
       "projectName": "Web",
-      "projectPath": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\Web.csproj",
-      "packagesPath": "C:\\Users\\hiroyay\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hiroyay\\source\\repos\\Deploy-to-PaaS-Hands-on-Lab\\src\\CS\\obj\\",
+      "projectPath": "/Users/koheisaito/Library/CloudStorage/OneDrive-Microsoft/Documents/my/demos/CloudWorkshop/Deploy-to-PaaS-Hands-on-Lab/src/CS/Web.csproj",
+      "packagesPath": "/Users/koheisaito/.nuget/packages/",
+      "outputPath": "/Users/koheisaito/Library/CloudStorage/OneDrive-Microsoft/Documents/my/demos/CloudWorkshop/Deploy-to-PaaS-Hands-on-Lab/src/CS/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\hiroyay\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "/Users/koheisaito/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -72,7 +62,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
       }
     }
   }
