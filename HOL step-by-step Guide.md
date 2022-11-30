@@ -8,34 +8,10 @@ Dec 2022
 ### Contents
 
 - [Exercise 1: 開発ツールから App Service への Web アプリの展開](#exercise-1-開発ツールから-app-service-への-web-アプリの展開)
-  - [Task 1: リポジトリのフォーク](#task-1-リポジトリのフォーク)
-  - [Task 2: 開発環境へのリポジトリのクローン](#task-2-開発環境へのリポジトリのクローン)
-  - [Task 3: App Service の作成](#task-3-app-service-の作成)
-  - [Task 4: App Service へ Web アプリを発行](#task-4-app-service-へ-web-アプリを発行)
 - [Exercise 2: GitHub Actions を使用した App Service への Web アプリの展開](#exercise-2-github-actions-を使用した-app-service-への-web-アプリの展開)
-  - [Task 1: App Service への継続的デプロイの設定](#task-1-app-service-への継続的デプロイの設定)
-  - [Task 2: ワークフローの修正](#task-2-ワークフローの修正)
-  - [Task 3: アプリケーションの更新](#task-3-アプリケーションの更新)
-  - [Task 4: ワークフローの実行](#task-4-ワークフローの実行)
 - [Exercise 3: ステージング環境への展開とスワップ操作による本番環境への昇格](#exercise-3-ステージング環境への展開とスワップ操作による本番環境への昇格)
-  - [Task 1: ステージング環境の準備](#task-1-ステージング環境の準備)
-  - [Task 2: ワークフローの修正](#task-2-ワークフローの修正-1)
-  - [Task 3: アプリケーションの更新](#task-3-アプリケーションの更新-1)
-  - [Task 4: ワークフローの実行](#task-4-ワークフローの実行-1)
-  - [Task 5: スワップ操作](#task-5-スワップ操作)
 - [Exercise 4: GitHub Actions を使用した Container Apps への Web アプリの展開](#exercise-4-github-actions-を使用した-container-apps-への-web-アプリの展開)
-  - [Task 1: サービス プリンシパルの作成](#task-1-サービス-プリンシパルの作成)
-  - [Task 2: 資格情報の GitHub リポジトリへの保存](#task-2-資格情報の-github-リポジトリへの保存)
-  - [Task 3: ワークフローの作成](#task-3-ワークフローの作成)
-  - [Task 4: ワークフローの検証](#task-4-ワークフローの検証)
-  - [Task 5: Container Apps の作成](#task-5-container-apps-の作成)
-  - [Task 6: ワークフローの更新](#task-6-ワークフローの更新)
-  - [Task 2: パラメーター ファイルの追加](#task-2-パラメーター-ファイルの追加)
-  - [Task 3: ワークフローの作成](#task-3-ワークフローの作成-1)
-  - [Task 4: ワークフローの検証](#task-4-ワークフローの検証-1)
-  - [Task 5: アプリケーションのビルドと新しいリソースへの展開](#task-5-アプリケーションのビルドと新しいリソースへの展開)
-  - [Task 6: ワークフローの実行](#task-6-ワークフローの実行)
-
+- [Exercise 5: GitHub Actions による Azure リソースの展開](#exercise-5-github-actions-による-azure-リソースの展開)
 <br />
 
 ## Exercise 1: 開発ツールから App Service への Web アプリの展開
