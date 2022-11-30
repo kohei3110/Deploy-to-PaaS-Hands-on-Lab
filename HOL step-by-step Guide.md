@@ -1852,8 +1852,9 @@ Dec 2022
 
     <img src="images/update-app-service-workflow-10.png" />
 
-  - Exe2 で使用した yaml ファイルから、build と deploy ステップを add-resource ステップの下にコピー
-  - 環境変数の APP_PATH 設定も忘れずにコピー
+  - 全体で次のような構成になるように ステップを追加する
+    - Exe2 で使用した yaml ファイルから、build と deploy ステップを add-resource ステップの下にコピー
+    - Exe2 で使用した yaml ファイルから環境変数の APP_PATH 設定をコピー
 
     ```yml
     jobs:
