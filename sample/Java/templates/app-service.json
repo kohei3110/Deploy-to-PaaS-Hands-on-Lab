@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appName": {
+            "type": "string",
+            "metadata": {
+                "description": "アプリケーションの名前"
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "appServicePlan": "[concat('asp-', parameters('appName'))]",
+        "appService": "[concat('app-', parameters('appName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2022-03-01",
+            "name": "[variables('appServicePlan')]",
+            "location": "[resourceGroup().location]",
+            "kind": "linux",
+            "sku": {
+                "name": "S1",
+                "tier": "Standard"
+            },
+            "properties": {
+                "reserved": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2022-03-01",
+            "name": "[variables('appService')]",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
+            ],
+            "kind": "app,linux",
+            "properties": {
+                "siteConfig" : {
+                    "linuxFxVersion": "JAVA|17-java17"
+                },    
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+                "httpsOnly": true                
+            }
+        }
+    ],
+    "outputs": {}
+}

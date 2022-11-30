@@ -1,0 +1,106 @@
+name: Deploy new App Service
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy-new-resouce:
+        description: "新しい App Service を展開"
+        type: boolean
+      resourceGroup:
+        description: "リソース グループ名"
+        required: true
+        type: string
+      appService:
+        description: "アプリケーション名"
+        type: string
+
+env:
+  APP_PATH: "src/Java/webapp-java"
+
+jobs:
+  add-resource:
+    if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: ARM deploy
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+          template: ./templates/app-service.json
+          parameters: appName=${{ github.event.inputs.appService }}
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Java version
+        uses: actions/setup-java@v1
+        with:
+          java-version: "17"
+
+      - name: Build with Maven
+        run: |
+          cd ${{ env.APP_PATH }}
+          mvn clean install
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v3
+        with:
+          name: java-app
+          path: "${{ github.workspace }}/${{ env.APP_PATH }}/target/*.jar"
+
+  deploy:
+    if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: "Production"
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: java-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "XXXXXXXX"
+          slot-name: "staging"
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_XXXXXXXXXXXXXXXXXX }}
+          package: "*.jar"
+
+  deploy-to-new-resource:
+    if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+    runs-on: ubuntu-latest
+    needs: [add-resource, build]
+
+    steps:
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Download artifact from build jobs
+        uses: actions/download-artifact@v3
+        with:
+          name: java-app
+
+      - name: Deploy to Web app
+        id: deploy-to-webAppName
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "app-${{ github.event.inputs.appService }}"
+          slot-name: "Production"
+          package: "*.jar"
