@@ -759,7 +759,7 @@ Dec 2022
 - サービス プリンシパルの作成（名前は任意、リソース グループに対する共同作成者の権限を付与）
 
   ```
-  az ad sp create-for-rbac --name "GitHub-Deploy" --scope $groupId --role Contributor --sdk-auth
+  az ad sp create-for-rbac --name "GitHub-Deploy" --scopes $groupId --role Contributor --sdk-auth
   ```
 
   <img src="images/create-sp-02.png" />
