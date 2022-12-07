@@ -1687,6 +1687,8 @@ Dec 2022
 
 - コメントを削除し "**value**" に値を入力
 
+  ※ App Service の名前となるので、グローバルで一意となる値を入力（テンプレートの設定で接頭語に app- が付与）
+
   <img src="images/new-arm-template-22.png" />
 
 <br />
