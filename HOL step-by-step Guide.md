@@ -903,8 +903,6 @@ Dec 2022
 
     ※ needs フィールドの設定により build ジョブの完了を待ってから実行
 
-    ※ docker コマンドでイメージの構築と Azure Container Registry へイメージをアップロード
-
     ※ Docker ファイルは事前に準備されたものを使用
 
     ※ リポジトリ名は app, タグには github.sha でコミット時のハッシュ文字列を使用
@@ -1132,7 +1130,7 @@ Dec 2022
 
 ### Task 6: ワークフローの更新
 
-- Visual Studio Code で、先の手順で追加したワークフロー ファイルを選択
+- Visual Studio Code で、Task 5 で追加したワークフロー ファイルを選択
 
 - ワークフロー実行時に値を入力できるようパラメーターを workflow_dispatch へ追加
 
