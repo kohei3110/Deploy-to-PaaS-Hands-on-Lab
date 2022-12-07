@@ -49,10 +49,10 @@ Dec 2022
   - ユーザー名の設定
 
     ```
-    git config --global user.name "UserName"
+    git config --global user.name "User Name"
     ```
 
-    ※ {User Name} を自身の名前に変更
+    ※ User Name を自身の名前に変更
 
   - Email アドレスの設定
 
@@ -1708,6 +1708,8 @@ Dec 2022
   ※ テンプレート ファイルと同じ場所に <テンプレート ファイル名>.parameters.json の名前でファイルを生成
 
 - コメントを削除し "**value**" に値を入力
+
+  ※ App Service の名前となるので、グローバルで一意となる値を入力（テンプレートの設定で接頭語に app- が付与）
 
   <img src="images/new-arm-template-22.png" />
 
