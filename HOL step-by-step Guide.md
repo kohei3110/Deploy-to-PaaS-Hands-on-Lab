@@ -49,7 +49,7 @@ Dec 2022
   - ユーザー名の設定
 
     ```
-    it config --global user.name "{User Name}"
+    git config --global user.name "{User Name}"
     ```
 
     ※ {User Name} を自身の名前に変更
