@@ -49,7 +49,7 @@ Dec 2022
   - ユーザー名の設定
 
     ```
-    git config --global user.name "{User Name}"
+    git config --global user.name "UserName"
     ```
 
     ※ {User Name} を自身の名前に変更
@@ -57,7 +57,7 @@ Dec 2022
   - Email アドレスの設定
 
     ```
-    git config --global user.email {Email Address}
+    git config --global user.email Email@Address
     ```
 
     ※ {Email Address} を使用するメール アドレスに変更
