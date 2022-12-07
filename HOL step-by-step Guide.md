@@ -12,7 +12,7 @@ Dec 2022
 - [Exercise 3: ステージング環境への展開とスワップ操作による本番環境への昇格](#exercise-3-ステージング環境への展開とスワップ操作による本番環境への昇格)
 - [Exercise 4: GitHub Actions を使用した Container Apps への Web アプリの展開](#exercise-4-github-actions-を使用した-container-apps-への-web-アプリの展開)
 - [Exercise 5: GitHub Actions による Azure リソースの展開](#exercise-5-github-actions-による-azure-リソースの展開)
-<br />
+  <br />
 
 ## Exercise 1: 開発ツールから App Service への Web アプリの展開
 
@@ -49,20 +49,34 @@ Dec 2022
   - ユーザー名の設定
 
     ```
-    git config --global user.name "{User Name}"
+    git config --global user.name "User Name"
     ```
 
-    ※ {User Name} を自身の名前に変更
-  
+    ※ User Name を自身の名前に変更
+
   - Email アドレスの設定
 
     ```
-    git config --global user.email {Email Address}
+    git config --global user.email Email@Address
     ```
 
     ※ {Email Address} を使用するメール アドレスに変更
 
-- サイドバーから Explorer を選択し "**Clone Repository" をクリック
+  - 設定値の確認
+
+    ```
+    git config --list --global
+    ```
+
+    ※ 設定したユーザー名・メール アドレスが出力されたら OK
+
+    ```
+    git remote -v
+    ```
+
+    ※ クローン先の GitHub URL が出力されたら OK
+
+- サイドバーから Explorer を選択し "\*\*Clone Repository" をクリック
 
   <img src="images/github-clone-02.png" />
 
@@ -88,25 +102,25 @@ Dec 2022
   - "**Terminal**" - "**New Terminal**" を選択
 
     <img src="images/github-clone-05.png" />
-  
+
   - C# の ASP.NET Core プロジェクトのディレクトリへ移動
 
     ```
     cd src/CS
     ```
-  
+
   - アプリケーションを実行
 
     ```
     dotnet run
     ```
-  
+
   - ターミナルに以下のようなメッセージが表示（Web アプリをテストする URL が https\://localhost:{port} で表示）
 
     HTTPS URL を Ctrl キーを押しながらクリック
 
     <img src="images/github-clone-06.png" />
-  
+
   - Web ブラウザが起動し、アプリケーションを表示
 
     <img src="images/github-clone-07.png" />
@@ -121,27 +135,26 @@ Dec 2022
   - "**Terminal**" - "**New Terminal**" を選択
 
     <img src="images/github-clone-05.png" />
-  
+
   - Java の SpringBoot プロジェクトのディレクトリへ移動
 
     ```
     cd src/Java/webapp-java
     ```
-  
+
   - アプリケーションを実行
 
     ```
     .\mvnw install
     .\mvnw spring-boot:run
     ```
-   
+
   - Web ブラウザを起動し、http://localhost:8080 にアクセスしてアプリケーションを表示
 
     <img src="images/github-clone-08.png" />
 
   - ターミナルで Ctrl + C を押下してアプリケーションを終了
 
-  
   </details>
 
 <br />
@@ -174,9 +187,9 @@ Dec 2022
 
       - **公開**: コード
 
-      - **ランタイム スタック**: 展開するアプリのランタイムを選択
+      - **ランタイム スタック**: 展開するアプリのランタイムを選択（**Java の場合は `Java 17` を選択**）
 
-      - **オペレーティング システム**: Windows
+      - **オペレーティング システム**: Windows（**Java の場合は Linux**）
 
       - **地域**: リソース グループと同じ地域を選択
 
@@ -224,7 +237,7 @@ Dec 2022
   - "**Terminal**" - "**New Terminal**" を選択
 
     <img src="images/github-clone-05.png" />
-  
+
   - C# の ASP.NET Core プロジェクトのディレクトリへ移動
 
     ```
@@ -238,11 +251,11 @@ Dec 2022
     ```
 
     <img src="images/dotnet-publish-01.png" />
-  
+
   - bin フォルダー内に Publish サブフォルダーが生成
 
     ※ Publish フォルダー内には App Service に展開するファイルが格納
-  
+
     <img src="images/dotnet-publish-02.png" />
 
   - Visual Studio Code のサイドバーから Azure Tool を選択
@@ -283,7 +296,7 @@ Dec 2022
   - "**Terminal**" - "**New Terminal**" を選択
 
     <img src="images/github-clone-05.png" />
-  
+
   - Java の Spring Boot プロジェクトのディレクトリへ移動
 
     ```powersshell
@@ -295,11 +308,11 @@ Dec 2022
     ```powershell
     .\mvnw package
     ```
-  
+
   - target フォルダーが生成される
 
     ※ target フォルダー内には App Service に展開する jar ファイルが格納
-  
+
     <img src="images/java-package-01.png" />
 
   - Maven Plugin for Azure WebApps を使用するように pom.xml を修正
@@ -307,10 +320,10 @@ Dec 2022
   - src/Java/webapp-java/pom.xml の plugins 要素に次の内容を追加
 
   ```xml
-      <plugin> 
-      <groupId>com.microsoft.azure</groupId>  
-      <artifactId>azure-webapp-maven-plugin</artifactId>  
-      <version>2.7.0</version>  
+      <plugin>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>azure-webapp-maven-plugin</artifactId>
+      <version>2.7.0</version>
       <configuration>
         <subscriptionId>111111-11111-11111-1111111</subscriptionId>
         <resourceGroup>spring-boot-xxxxxxxxxx-rg</resourceGroup>
@@ -327,16 +340,16 @@ Dec 2022
         </resources>
         </deployment>
       </configuration>
-     </plugin> 
+     </plugin>
   ```
 
-  - 今追加した個所のうち、次の3か所を作成済みの WebApps 情報に修正する
+  - 今追加した個所のうち、次の 3 か所を作成済みの WebApps 情報に修正する
 
     1. **subscriptionId**
     1. **resourceGroup**
     1. **appName**
 
-    - 3つの情報は作成した AppService の概要に記載されている
+    - 3 つの情報は作成した AppService の概要に記載されている
 
   - maven コマンドを使用してデプロイ
 
@@ -368,6 +381,10 @@ Dec 2022
 
   <img src="images/app-service-deploy-center-02.png" />
 
+  **※Java の場合は以下のようになる。**
+
+  <img src="images/app-service-deploy-center-java-01.png" />
+
 - アカウント名、パスワードを入力し、サインインを実行
 
   <img src="images/app-service-deploy-center-03.png" />
@@ -396,7 +413,7 @@ Dec 2022
 
   <img src="images/app-service-workflow-01.png" />
 
-  ※ ファイル名は {ブランチ名}_{App Service 名}.yml
+  ※ ファイル名は {ブランチ名}\_{App Service 名}.yml
 
   ※ ブランチ名が "**main**"、App Service 名が "**app-workshop-1**" のとき、ファイルは "**main_app-workshop-1.yml**" の名前で生成
 
@@ -419,6 +436,10 @@ Dec 2022
 - 各ステップのログを確認し、エラーを特定
 
   <img src="images/app-service-workflow-04.png" />
+
+  **※Java の場合は以下のようになる。**
+
+  <img src="images/app-service-deploy-center-java-02.png" />
 
 - Visual Studio Code のサイドバーで "**Source Control**" を選択
 
@@ -448,27 +469,27 @@ Dec 2022
       workflow_dispatch:
 
     env:
-      APP_PATH: './src/CS'
+      APP_PATH: "./src/CS"
 
     jobs:
       build:
         runs-on: windows-latest
-    
+
         steps:
           - uses: actions/checkout@v2
 
           - name: Set up .NET Core
             uses: actions/setup-dotnet@v1
             with:
-              dotnet-version: '6.0.x'
+              dotnet-version: "6.0.x"
               include-prerelease: true
-    
+
           - name: Build with dotnet
             run: dotnet build ${{ env.APP_PATH }} --configuration Release
-    
+
           - name: dotnet publish
             run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
-    
+
           - name: Upload artifact for deployment job
             uses: actions/upload-artifact@v2
             with:
@@ -485,16 +506,16 @@ Dec 2022
 
   - **env** セクションで環境変数 APP_PATH を定義
 
-  - **build** mvn コマンド実施前に working directory を移動、アーティファクトへのアップロードする成果物のパスに定義した APP_PATH を使用。また actions/upload-artifactのバージョンが@2で作成されるがこれは古いため@3にする
+  - **build** mvn コマンド実施前に working directory を移動、アーティファクトへのアップロードする成果物のパスに定義した APP_PATH を使用。また actions/upload-artifact のバージョンが@2 で作成されるがこれは古いため@3 にする
 
-  - **deploy** actions/download-artifactのバージョンが@2で作成されるがこれは古いため@3にする
+  - **deploy** actions/download-artifact のバージョンが@2 で作成されるがこれは古いため@3 にする
 
     ```yml
     on:
       workflow_dispatch:
 
     env:
-      APP_PATH: 'src/Java/webapp-java'
+      APP_PATH: "src/Java/webapp-java"
 
     jobs:
       build:
@@ -506,7 +527,7 @@ Dec 2022
           - name: Set up Java version
             uses: actions/setup-java@v1
             with:
-              java-version: '17'
+              java-version: "17"
 
           - name: Build with Maven
             run: |
@@ -517,15 +538,15 @@ Dec 2022
             uses: actions/upload-artifact@v3
             with:
               name: java-app
-              path: '${{ github.workspace }}/${{ env.APP_PATH }}/target/*.jar'
+              path: "${{ github.workspace }}/${{ env.APP_PATH }}/target/*.jar"
 
       deploy:
         runs-on: ubuntu-latest
         needs: build
         environment:
-          name: 'Production'
+          name: "Production"
           url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-        
+
         steps:
           - name: Download artifact from build job
             uses: actions/download-artifact@v3
@@ -536,10 +557,10 @@ Dec 2022
             id: deploy-to-webapp
             uses: azure/webapps-deploy@v2
             with:
-              app-name: '******'
-              slot-name: 'Production'
+              app-name: "******"
+              slot-name: "Production"
               publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_**************** }}
-              package: '*.jar'
+              package: "*.jar"
     ```
 
   </details>
@@ -556,7 +577,7 @@ Dec 2022
   - src/CS/Views/Home の Index.cshtml を選択
 
     <img src="images/update-app-01.png" />
-  
+
   - エディタでバージョン番号を変更
 
     <img src="images/update-app-02.png" />
@@ -584,11 +605,15 @@ Dec 2022
 
   <img src="images/update-app-service-workflow-04.png" />
 
+  **※Java の場合は以下のようになる。**
+
+  <img src="images/update-app-service-workflow-java-01.png>
+
 <br />
 
 ### Task 4: ワークフローの実行
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - アプリを展開するワークフローを選択
 
@@ -672,7 +697,7 @@ Dec 2022
   - src/CS/Views/Home の Index.cshtml を選択
 
     <img src="images/update-app-01.png" />
-  
+
   - エディタでバージョン番号を変更
 
     <img src="images/app-service-staging-slot-06.png" />
@@ -704,7 +729,7 @@ Dec 2022
 
 ### Task 4: ワークフローの実行
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - アプリを展開するワークフローを選択
 
@@ -778,13 +803,13 @@ Dec 2022
 
 - "**Secrets**" - "**Actions**" に次のシークレットを登録
 
-  | シークレット名 | 値 |
-  | ---- | ---- |
-  | AZURE_CREDENTIALS | サービス プリンシパル作成時に出力された JSON 全体 |
-  | REGISTRY_LOGINSERVER | Azure Container Registry のログイン サーバー名 |
-  | REGISTRY_USERNAME | Azure Container Registry の管理者のユーザー名 |
-  | REGISTRY_PASSWORD | Azure Container Registry の管理者のパスワード |
-  | AZURE_SUBSCRIPTION | サービス プリンシパルの作成時に出力された JSON 内の subscriptionId |
+  | シークレット名       | 値                                                                 |
+  | -------------------- | ------------------------------------------------------------------ |
+  | AZURE_CREDENTIALS    | サービス プリンシパル作成時に出力された JSON 全体                  |
+  | REGISTRY_LOGINSERVER | Azure Container Registry のログイン サーバー名                     |
+  | REGISTRY_USERNAME    | Azure Container Registry の管理者のユーザー名                      |
+  | REGISTRY_PASSWORD    | Azure Container Registry の管理者のパスワード                      |
+  | AZURE_SUBSCRIPTION   | サービス プリンシパルの作成時に出力された JSON 内の subscriptionId |
 
   <img src="images/action-secret-2.png" />
 
@@ -793,7 +818,6 @@ Dec 2022
     <img src="images/acr-login-server.png" />
 
     ※ 管理者ユーザーを "**有効**" に設定
-  
 
 ### Task 3: ワークフローの作成
 
@@ -830,19 +854,19 @@ Dec 2022
             with:
               dotnet-version: '6.0.x'
               include-prerelease: true
-          
+
           - name: Build with dotnet
             run: dotnet build ${{ env.APP_PATH }} --configuration Release
-          
+
           - name: dotnet publish
             run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
-          
+
           - name: Upload artifact for deployment job
             uses: actions/upload-artifact@v2
             with:
               name: .net-app
               path: ${{ env.APP_PATH }}/myapp
-    
+
     ```
 
     ※ App Service への展開を行うワークフローの build ジョブと同じ、環境変数はジョブ内で定義
@@ -853,7 +877,7 @@ Dec 2022
       push:
         runs-on: ubuntu-latest
         needs: build
-      
+
         steps:
           - uses: actions/checkout@v2
 
@@ -862,24 +886,22 @@ Dec 2022
             with:
               name: .net-app
               path: release
-          
+
           - name: Login via Azure Container Registry
             uses: azure/docker-login@v1
             with:
               login-server: ${{ secrets.REGISTRY_LOGINSERVER }}
               username: ${{ secrets.REGISTRY_USERNAME }}
               password: ${{ secrets.REGISTRY_PASSWORD }}
-          
+
           - name: Docker build and push
             run: |
               docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/CS/dockerfile
               docker push ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
-    
+
     ```
 
     ※ needs フィールドの設定により build ジョブの完了を待ってから実行
-
-    ※ docker コマンドでイメージの構築と Azure Container Registry へイメージをアップロード
 
     ※ Docker ファイルは事前に準備されたものを使用
 
@@ -888,18 +910,18 @@ Dec 2022
     <details>
     <summary>dockerfile</summary>
 
-      ```docker
-      FROM mcr.microsoft.com/dotnet/aspnet:6.0
-      WORKDIR /app
+    ```docker
+    FROM mcr.microsoft.com/dotnet/aspnet:6.0
+    WORKDIR /app
 
-      COPY ./release .
+    COPY ./release .
 
-      ENTRYPOINT ["dotnet", "Web.dll"]
-      ```
+    ENTRYPOINT ["dotnet", "Web.dll"]
+    ```
 
-      ※ build ジョブで発行されたアプリケーションをイメージにコピー
+    ※ build ジョブで発行されたアプリケーションをイメージにコピー
 
-      ※ エントリ ポイントを定義
+    ※ エントリ ポイントを定義
     </details>
 
   </details>
@@ -914,7 +936,7 @@ Dec 2022
       build:
         runs-on: ubuntu-latest
         env:
-          APP_PATH: 'src/Java/webapp-java'
+          APP_PATH: "src/Java/webapp-java"
 
         steps:
           - uses: actions/checkout@v2
@@ -922,7 +944,7 @@ Dec 2022
           - name: Set up Java version
             uses: actions/setup-java@v1
             with:
-              java-version: '17'
+              java-version: "17"
 
           - name: Build with Maven
             run: |
@@ -933,7 +955,7 @@ Dec 2022
             uses: actions/upload-artifact@v3
             with:
               name: java-app
-              path: '${{ github.workspace }}/${{ env.APP_PATH }}/target/*.jar'
+              path: "${{ github.workspace }}/${{ env.APP_PATH }}/target/*.jar"
     ```
 
     ※ App Service への展開を行うワークフローの build ジョブと同じ、環境変数はジョブ内で定義
@@ -944,7 +966,7 @@ Dec 2022
     push:
       runs-on: ubuntu-latest
       needs: build
-    
+
       steps:
         - uses: actions/checkout@v2
 
@@ -952,15 +974,15 @@ Dec 2022
           uses: actions/download-artifact@v3
           with:
             name: java-app
-            path: 'target'
-        
+            path: "target"
+
         - name: Login via Azure Container Registry
           uses: azure/docker-login@v1
           with:
             login-server: ${{ secrets.REGISTRY_LOGINSERVER }}
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
-        
+
         - name: Docker build and push
           run: |
             docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/Java/dockerfile
@@ -977,20 +999,24 @@ Dec 2022
 
   - ワークフロー ファイル作成後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
 
-    <details>
-    <summary>dockerfile</summary>
+      <details>
+      <summary>dockerfile</summary>
 
-      ```docker
+        ```docker
+
     FROM openjdk:17-jdk-alpine
     EXPOSE 8080
     ENTRYPOINT ["java","-jar","/app.jar"]
-      ```
 
-      ※ build ジョブで発行されたアプリケーションをイメージにコピー
+    ```
 
-      ※ エントリ ポイントを定義
+        ※ build ジョブで発行されたアプリケーションをイメージにコピー
+
+        ※ エントリ ポイントを定義
+
+      </details>
     </details>
-  </details>
+    ```
 
 <br />
 
@@ -1037,7 +1063,7 @@ Dec 2022
       - **リソース グループ**: 展開先のリソース グループ
 
       - **コンテナー アプリ名**: 任意 (小文字の英数字、ハイフンを使用可で 32 文字以下)
-    
+
     - Container Apps 環境
 
       - **地域**: リソース グループと同じ地域を選択
@@ -1061,7 +1087,7 @@ Dec 2022
             <img src="images/container-apps-environment-02.png" />
 
             ※ 既定の名前から変更する場合は、新規作成をクリックし名前を入力
-          
+
           - "**ネットワーク**"
 
             - **自分の仮想ネットワークを使用する**: いいえ
@@ -1079,7 +1105,7 @@ Dec 2022
     - ** クイック スタート イメージ**: Simple hello world container (既定)
 
     <img src="images/new-container-app-03.png" />
-  
+
   - "**確認と作成** をクリック
 
   - 指定した内容を確認し "**作成**" をクリック
@@ -1096,7 +1122,7 @@ Dec 2022
 
     <img src="images/new-container-app-06.png" />
 
-- **重要**! Java の場合は続けて SpringBoot が公開するPort:8080をターゲットポートにして保存する
+- **重要**! Java の場合は続けて SpringBoot が公開する Port:8080 をターゲットポートにして保存する
 
     <img src="images/new-container-app-08.png" />
 
@@ -1104,7 +1130,7 @@ Dec 2022
 
 ### Task 6: ワークフローの更新
 
-- Visual Studio Code で、先の手順で追加したワークフロー ファイルを選択
+- Visual Studio Code で、Task 5 で追加したワークフロー ファイルを選択
 
 - ワークフロー実行時に値を入力できるようパラメーターを workflow_dispatch へ追加
 
@@ -1118,7 +1144,7 @@ Dec 2022
           description: 'コンテナー アプリ名'
           required: true
           type: string
-  
+
   ```
 
 - Container Apps へアプリを展開するジョブを追加
@@ -1133,7 +1159,7 @@ Dec 2022
           uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+
         - name: Deploy to containerapp
           uses: azure/CLI@v1
           with:
@@ -1178,23 +1204,23 @@ Dec 2022
           with:
             dotnet-version: '6.0.x'
             include-prerelease: true
-          
+
         - name: Build with dotnet
           run: dotnet build ${{ env.APP_PATH }} --configuration Release
-          
+
         - name: dotnet publish
           run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
-          
+
         - name: Upload artifact for deployment job
           uses: actions/upload-artifact@v2
           with:
             name: .net-app
             path: ${{ env.APP_PATH }}/myapp
-    
+
     push:
       runs-on: ubuntu-latest
       needs: build
-      
+
       steps:
         - uses: actions/checkout@v2
 
@@ -1203,19 +1229,19 @@ Dec 2022
           with:
             name: .net-app
             path: release
-          
+
         - name: Login via Azure Container Registry
           uses: azure/docker-login@v1
           with:
             login-server: ${{ secrets.REGISTRY_LOGINSERVER }}
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
-          
+
         - name: Docker build and push
           run: |
             docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/CS/dockerfile
             docker push ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
-  
+
     deploy:
       runs-on: ubuntu-latest
       needs: push
@@ -1225,7 +1251,7 @@ Dec 2022
           uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+
         - name: Deploy to containerapp
           uses: azure/CLI@v1
           with:
@@ -1242,18 +1268,17 @@ Dec 2022
   <summary>Java: ワークフロー全体</summary>
 
   ```yml
-
   name: Deploy container
 
   on:
     workflow_dispatch:
       inputs:
         resourceGroup:
-          description: 'リソース グループ名'
+          description: "リソース グループ名"
           required: true
           type: string
         containerApp:
-          description: 'コンテナー アプリ名'
+          description: "コンテナー アプリ名"
           required: true
           type: string
 
@@ -1261,7 +1286,7 @@ Dec 2022
     build:
       runs-on: ubuntu-latest
       env:
-        APP_PATH: 'src/Java/webapp-java'
+        APP_PATH: "src/Java/webapp-java"
 
       steps:
         - uses: actions/checkout@v2
@@ -1269,7 +1294,7 @@ Dec 2022
         - name: Set up Java version
           uses: actions/setup-java@v1
           with:
-            java-version: '17'
+            java-version: "17"
 
         - name: Build with Maven
           run: |
@@ -1280,12 +1305,12 @@ Dec 2022
           uses: actions/upload-artifact@v3
           with:
             name: java-app
-            path: '${{ github.workspace }}/${{ env.APP_PATH }}/target/*.jar'
+            path: "${{ github.workspace }}/${{ env.APP_PATH }}/target/*.jar"
 
     push:
       runs-on: ubuntu-latest
       needs: build
-    
+
       steps:
         - uses: actions/checkout@v2
 
@@ -1293,15 +1318,15 @@ Dec 2022
           uses: actions/download-artifact@v3
           with:
             name: java-app
-            path: 'target'
-        
+            path: "target"
+
         - name: Login via Azure Container Registry
           uses: azure/docker-login@v1
           with:
             login-server: ${{ secrets.REGISTRY_LOGINSERVER }}
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
-        
+
         - name: Docker build and push
           run: |
             docker build . -t ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }} -f ./.docker/Java/dockerfile
@@ -1316,7 +1341,7 @@ Dec 2022
           uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
+
         - name: Deploy to containerapp
           uses: azure/CLI@v1
           with:
@@ -1324,16 +1349,17 @@ Dec 2022
               az config set extension.use_dynamic_install=yes_without_prompt
               az containerapp registry set -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --server ${{ secrets.REGISTRY_LOGINSERVER }} --username  ${{ secrets.REGISTRY_USERNAME }} --password ${{ secrets.REGISTRY_PASSWORD }}
               az containerapp update -n ${{ github.event.inputs.containerApp }} -g ${{ github.event.inputs.resourceGroup }} --image ${{ secrets.REGISTRY_LOGINSERVER }}/app:${{ github.sha }}
-    ```
+  ```
 
   </details>
+
 - ワークフロー ファイル更新後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
 
 <br />
 
 ### Task 7: ワークフローの実行
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - Container Apps へアプリを展開するワークフローを選択
 
@@ -1428,7 +1454,7 @@ Dec 2022
   ※ パラメーターで指定された値に "**app-**" の接頭語を付与
 
 - "**resources**" フィールドの [] の内で Enter キーを押下
-  
+
   "**{**" を入力すると候補が表示されるため "**type** を選択
 
   <img src="images/new-arm-template-12.png" />
@@ -1474,6 +1500,7 @@ Dec 2022
                 "reserved": true
             }
   ```
+
   <img src="./images/new-arm-template-java-01.png" />
 
   </details>
@@ -1486,30 +1513,28 @@ Dec 2022
   <summary>C#</summary>
 
   ```yml
+  {
+    "type": "Microsoft.Web/sites",
+    "apiVersion": "2022-03-01",
+    "name": "[variables('appService')]",
+    "location": "[resourceGroup().location]",
+    "dependsOn":
+      [
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+      ],
+    "properties":
+      {
+        "siteConfig":
           {
-              "type": "Microsoft.Web/sites",
-              "apiVersion": "2022-03-01",
-              "name": "[variables('appService')]",
-              "location": "[resourceGroup().location]",
-              "dependsOn": [
-                  "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
-              ],
-              "properties": {
-                  "siteConfig": {
-                      "metadata": [
-                          {
-                              "name": "CURRENT_STACK",
-                              "value": "dotnet"
-                          }
-                      ],
-                      "netFrameworkVersion": "v6.0"
-                  },
-                  "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
-                  "httpsOnly": true
-              }
-          }
+            "metadata": [{ "name": "CURRENT_STACK", "value": "dotnet" }],
+            "netFrameworkVersion": "v6.0",
+          },
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+        "httpsOnly": true,
+      },
+  }
   ```
-  
+
   <img src="images/new-arm-template-17.png" />
 
   </details>
@@ -1518,23 +1543,23 @@ Dec 2022
   <summary>Java</summary>
 
   ```yml
-        {
-            "type": "Microsoft.Web/sites",
-            "apiVersion": "2022-03-01",
-            "name": "[variables('appService')]",
-            "location": "[resourceGroup().location]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
-            ],
-            "kind": "app,linux",
-            "properties": {
-                "siteConfig" : {
-                    "linuxFxVersion": "JAVA|17-java17"
-                },    
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
-                "httpsOnly": true                
-            }
-        }
+  {
+    "type": "Microsoft.Web/sites",
+    "apiVersion": "2022-03-01",
+    "name": "[variables('appService')]",
+    "location": "[resourceGroup().location]",
+    "dependsOn":
+      [
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+      ],
+    "kind": "app,linux",
+    "properties":
+      {
+        "siteConfig": { "linuxFxVersion": "JAVA|17-java17" },
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+        "httpsOnly": true,
+      },
+  }
   ```
 
   <img src="./images/new-arm-template-java-02.png">
@@ -1549,56 +1574,56 @@ Dec 2022
 
   ```yml
   {
-      "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-      "contentVersion": "1.0.0.0",
-      "parameters": {
-          "appName": {
-              "type": "string",
-              "metadata": {
-                  "description": "Web アプリ名 (App Service には app-, Plan には asp- の接頭語が付きます)"
-              }
-          }
-      },
-      "functions": [],
-      "variables": {
-          "appServicePlan": "[concat('asp-', parameters('appName'))]",
-          "appService": "[concat('app-', parameters('appName'))]"
-      },
-      "resources": [
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters":
+      {
+        "appName":
           {
-              "type": "Microsoft.Web/serverfarms",
-              "apiVersion": "2022-03-01",
-              "name": "[variables('appServicePlan')]",
-              "location": "[resourceGroup().location]",
-              "sku": {
-                  "name": "S1",
-                  "tier": "Standard"
-              }
+            "type": "string",
+            "metadata":
+              {
+                "description": "Web アプリ名 (App Service には app-, Plan には asp- の接頭語が付きます)",
+              },
           },
-          {
-              "type": "Microsoft.Web/sites",
-              "apiVersion": "2022-03-01",
-              "name": "[variables('appService')]",
-              "location": "[resourceGroup().location]",
-              "dependsOn": [
-                  "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
-              ],
-              "properties": {
-                  "siteConfig": {
-                      "metadata": [
-                          {
-                              "name": "CURRENT_STACK",
-                              "value": "dotnet"
-                          }
-                      ],
-                      "netFrameworkVersion": "v6.0"
-                  },
-                  "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
-                  "httpsOnly": true
-              }
-          }
+      },
+    "functions": [],
+    "variables":
+      {
+        "appServicePlan": "[concat('asp-', parameters('appName'))]",
+        "appService": "[concat('app-', parameters('appName'))]",
+      },
+    "resources":
+      [
+        {
+          "type": "Microsoft.Web/serverfarms",
+          "apiVersion": "2022-03-01",
+          "name": "[variables('appServicePlan')]",
+          "location": "[resourceGroup().location]",
+          "sku": { "name": "S1", "tier": "Standard" },
+        },
+        {
+          "type": "Microsoft.Web/sites",
+          "apiVersion": "2022-03-01",
+          "name": "[variables('appService')]",
+          "location": "[resourceGroup().location]",
+          "dependsOn":
+            [
+              "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+            ],
+          "properties":
+            {
+              "siteConfig":
+                {
+                  "metadata": [{ "name": "CURRENT_STACK", "value": "dotnet" }],
+                  "netFrameworkVersion": "v6.0",
+                },
+              "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+              "httpsOnly": true,
+            },
+        },
       ],
-      "outputs": {}
+    "outputs": {},
   }
   ```
 
@@ -1609,55 +1634,52 @@ Dec 2022
 
   ```yml
   {
-      "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-      "contentVersion": "1.0.0.0",
-      "parameters": {
-          "appName": {
-              "type": "string",
-              "metadata": {
-                  "description": "アプリケーションの名前"
-              }
-          }
-      },
-      "functions": [],
-      "variables": {
-          "appServicePlan": "[concat('asp-', parameters('appName'))]",
-          "appService": "[concat('app-', parameters('appName'))]"
-      },
-      "resources": [
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters":
+      {
+        "appName":
           {
-              "type": "Microsoft.Web/serverfarms",
-              "apiVersion": "2022-03-01",
-              "name": "[variables('appServicePlan')]",
-              "location": "[resourceGroup().location]",
-              "kind": "linux",
-              "sku": {
-                  "name": "S1",
-                  "tier": "Standard"
-              },
-              "properties": {
-                  "reserved": true
-              }
+            "type": "string",
+            "metadata": { "description": "アプリケーションの名前" },
           },
-          {
-              "type": "Microsoft.Web/sites",
-              "apiVersion": "2022-03-01",
-              "name": "[variables('appService')]",
-              "location": "[resourceGroup().location]",
-              "dependsOn": [
-                  "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
-              ],
-              "kind": "app,linux",
-              "properties": {
-                  "siteConfig" : {
-                      "linuxFxVersion": "JAVA|17-java17"
-                  },    
-                  "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
-                  "httpsOnly": true                
-              }
-          }
+      },
+    "functions": [],
+    "variables":
+      {
+        "appServicePlan": "[concat('asp-', parameters('appName'))]",
+        "appService": "[concat('app-', parameters('appName'))]",
+      },
+    "resources":
+      [
+        {
+          "type": "Microsoft.Web/serverfarms",
+          "apiVersion": "2022-03-01",
+          "name": "[variables('appServicePlan')]",
+          "location": "[resourceGroup().location]",
+          "kind": "linux",
+          "sku": { "name": "S1", "tier": "Standard" },
+          "properties": { "reserved": true },
+        },
+        {
+          "type": "Microsoft.Web/sites",
+          "apiVersion": "2022-03-01",
+          "name": "[variables('appService')]",
+          "location": "[resourceGroup().location]",
+          "dependsOn":
+            [
+              "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+            ],
+          "kind": "app,linux",
+          "properties":
+            {
+              "siteConfig": { "linuxFxVersion": "JAVA|17-java17" },
+              "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+              "httpsOnly": true,
+            },
+        },
       ],
-      "outputs": {}
+    "outputs": {},
   }
   ```
 
@@ -1708,10 +1730,9 @@ Dec 2022
     workflow_dispatch:
       inputs:
         resourceGroup:
-          description: 'リソース グループ名'
+          description: "リソース グループ名"
           required: true
           type: string
-  
   ```
 
   ※ ワークフローは手動で実行、実行時にリソース グループ名をパラメーターとして取得
@@ -1722,14 +1743,14 @@ Dec 2022
   jobs:
     add-resource:
       runs-on: ubuntu-latest
-  
+
       steps:
         - uses: actions/checkout@v2
-  
+
         - uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-  
+
         - name: ARM deploy
           uses: azure/arm-deploy@v1
           with:
@@ -1737,7 +1758,6 @@ Dec 2022
             resourceGroupName: ${{ github.event.inputs.resourceGroup }}
             template: ./templates/app-service.json
             parameters: ./templates/app-service.parameters.json
-  
   ```
 
   <details>
@@ -1757,14 +1777,14 @@ Dec 2022
   jobs:
     add-resource:
       runs-on: ubuntu-latest
-  
+
       steps:
         - uses: actions/checkout@v2
-  
+
         - uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
-  
+
         - name: ARM deploy
           uses: azure/arm-deploy@v1
           with:
@@ -1772,8 +1792,9 @@ Dec 2022
             resourceGroupName: ${{ github.event.inputs.resourceGroup }}
             template: ./templates/app-service.json
             parameters: ./templates/app-service.parameters.json
-  
+
   ```
+
   </details>
 
 - ワークフロー ファイル作成後、ローカル Git にコミットを行い、リモート リポジトリへプッシュを実行
@@ -1782,7 +1803,7 @@ Dec 2022
 
 ### Task 4: ワークフローの検証
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - App Service を展開するワークフローを選択
 
@@ -1806,77 +1827,72 @@ Dec 2022
 
 - ワークフロー ファイルの編集
 
-  - workflow_dispatch トリガーにパラメーターを2つ追加
+  - workflow_dispatch トリガーにパラメーターを 2 つ追加
 
     ```yml
-        inputs:
-          deploy-new-resouce:
-            description: '新しい App Service を展開'
-            type: boolean
-          resourceGroup:
-            description: 'リソース グループ'
-            type: string
-          appService:
-            description: 'アプリケーション名'
-            type: string
-    
+    inputs:
+      deploy-new-resouce:
+        description: "新しい App Service を展開"
+        type: boolean
+      resourceGroup:
+        description: "リソース グループ"
+        type: string
+      appService:
+        description: "アプリケーション名"
+        type: string
     ```
 
     <img src="images/update-app-service-workflow-09.png" />
 
   - 新しい App Service を展開するジョブを修正
-  
+
     ```yml
-      add-resource:
-        if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
-        runs-on: ubuntu-latest
-    
-        steps:
-          - uses: actions/checkout@v2
-    
-          - uses: azure/login@v1
-            with:
-              creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-          - name: ARM deploy
-            uses: azure/arm-deploy@v1
-            with:
-              subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-              resourceGroupName: ${{ github.event.inputs.resourceGroup }}
-              template: ./templates/app-service.json
-              parameters: appName=${{ github.event.inputs.appService }}
-    
+    add-resource:
+      if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v2
+
+        - uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+        - name: ARM deploy
+          uses: azure/arm-deploy@v1
+          with:
+            subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+            resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+            template: ./templates/app-service.json
+            parameters: appName=${{ github.event.inputs.appService }}
     ```
 
-    ※ if文を追加。'新しい App Service を展開' のパラメーターが true のときのみ実行
+    ※ if 文を追加。'新しい App Service を展開' のパラメーターが true のときのみ実行
 
     ※ App Service 名は、パラメーター ファイルでなく、ワークフロー実行時に入力された値を使用するように変更
 
     <img src="images/update-app-service-workflow-10.png" />
 
   - 全体で次のような構成になるように ステップを追加する
+
     - Exe2 で使用した yaml ファイルから、build と deploy ステップを add-resource ステップの下にコピー
     - Exe2 で使用した yaml ファイルから環境変数の APP_PATH 設定をコピー
 
     ```yml
     jobs:
-      on:
-        ・・・
+      on: ・・・
       env:
-        APP_PATH: '・・・'
+        APP_PATH: "・・・"
       jobs:
-        add-resource:
-          ・・・
-        build:
-          ・・・
-        deploy:
-          ・・・
+        add-resource: ・・・
+        build: ・・・
+        deploy: ・・・
     ```
 
   - deploy ジョブの変更
 
     ```yml
-        if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
+    if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
     ```
 
     ※ '新しい App Service を展開' のパラメーターが false のときのみ実行
@@ -1889,28 +1905,28 @@ Dec 2022
     <summary>C#</summary>
 
     ```yml
-      deploy-to-new-resource:
-        if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
-        runs-on: windows-latest
-        needs: [add-resource, build]
-    
-        steps:
-          - uses: azure/login@v1
-            with:
-              creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
-          - name: Download artifact from build jobs
-            uses: actions/download-artifact@v2
-            with:
-              name: .net-app
-    
-          - name: Deploy to Web app
-            id: deploy-to-webAppName
-            uses: azure/webapps-deploy@v2
-            with:
-              app-name: 'app-${{ github.event.inputs.appService }}'
-              slot-name: 'Production'
-              package: .
+    deploy-to-new-resource:
+      if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+      runs-on: windows-latest
+      needs: [add-resource, build]
+
+      steps:
+        - uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+        - name: Download artifact from build jobs
+          uses: actions/download-artifact@v2
+          with:
+            name: .net-app
+
+        - name: Deploy to Web app
+          id: deploy-to-webAppName
+          uses: azure/webapps-deploy@v2
+          with:
+            app-name: "app-${{ github.event.inputs.appService }}"
+            slot-name: "Production"
+            package: .
     ```
 
     </details>
@@ -1938,9 +1954,9 @@ Dec 2022
           id: deploy-to-webAppName
           uses: azure/webapps-deploy@v2
           with:
-            app-name: 'app-${{ github.event.inputs.appService }}'
-            slot-name: 'Production'
-            package: '*.jar'
+            app-name: "app-${{ github.event.inputs.appService }}"
+            slot-name: "Production"
+            package: "*.jar"
     ```
 
     </details>
@@ -1958,30 +1974,30 @@ Dec 2022
         workflow_dispatch:
           inputs:
             deploy-new-resouce:
-              description: '新しい App Service を展開'
+              description: "新しい App Service を展開"
               type: boolean
             resourceGroup:
-              description: 'リソース グループ'
+              description: "リソース グループ"
               type: string
             appService:
-              description: 'アプリケーション名'
+              description: "アプリケーション名"
               type: string
-      
+
       env:
-        APP_PATH: './src/CS'
-      
+        APP_PATH: "./src/CS"
+
       jobs:
         add-resource:
           if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
           runs-on: ubuntu-latest
-      
+
           steps:
             - uses: actions/checkout@v2
-      
+
             - uses: azure/login@v1
               with:
                 creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
+
             - name: ARM deploy
               uses: azure/arm-deploy@v1
               with:
@@ -1989,17 +2005,17 @@ Dec 2022
                 resourceGroupName: ${{ github.event.inputs.resourceGroup }}
                 template: ./templates/app-service.json
                 parameters: appName=${{ github.event.inputs.appService }}
-      
+
         build:
           runs-on: windows-latest
-      
+
           steps:
             - uses: actions/checkout@v2
-      
+
             - name: Set up .NET Core
               uses: actions/setup-dotnet@v1
               with:
-                dotnet-version: '6.0.x'
+                dotnet-version: "6.0.x"
                 include-prerelease: true
 
             - name: Build with dotnet
@@ -2007,36 +2023,36 @@ Dec 2022
 
             - name: dotnet publish
               run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
-      
+
             - name: Upload artifact for deployment job
               uses: actions/upload-artifact@v2
               with:
                 name: .net-app
                 path: ${{ env.APP_PATH }}/myapp
-      
+
         deploy:
           if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
           runs-on: windows-latest
-          needs: build      
+          needs: build
           environment:
-            name: 'Production'
+            name: "Production"
             url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-      
+
           steps:
             - name: Download artifact from build job
               uses: actions/download-artifact@v2
               with:
                 name: .net-app
-      
+
             - name: Deploy to Azure Web App
               id: deploy-to-webapp
               uses: azure/webapps-deploy@v2
               with:
-                app-name: 'app-cloudworkshop-1'
-                slot-name: 'staging'
+                app-name: "app-cloudworkshop-1"
+                slot-name: "staging"
                 publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_xxxx }}
                 package: .
-      
+
         deploy-to-new-resource:
           if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
           runs-on: windows-latest
@@ -2046,18 +2062,18 @@ Dec 2022
             - uses: azure/login@v1
               with:
                 creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
+
             - name: Download artifact from build jobs
               uses: actions/download-artifact@v2
               with:
                 name: .net-app
-      
+
             - name: Deploy to Web app
               id: deploy-to-webAppName
               uses: azure/webapps-deploy@v2
               with:
-                app-name: 'app-${{ github.event.inputs.appService }}'
-                slot-name: 'Production'
+                app-name: "app-${{ github.event.inputs.appService }}"
+                slot-name: "Production"
                 package: .
       ```
 
@@ -2073,38 +2089,38 @@ Dec 2022
         workflow_dispatch:
           inputs:
             deploy-new-resouce:
-              description: '新しい App Service を展開'
+              description: "新しい App Service を展開"
               type: boolean
             resourceGroup:
-              description: 'リソース グループ名'
+              description: "リソース グループ名"
               required: true
               type: string
             appService:
-              description: 'アプリケーション名'
+              description: "アプリケーション名"
               type: string
 
       env:
-        APP_PATH: 'src/Java/webapp-java'
+        APP_PATH: "src/Java/webapp-java"
 
       jobs:
         add-resource:
-            if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
-            runs-on: ubuntu-latest
+          if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+          runs-on: ubuntu-latest
 
-            steps:
-              - uses: actions/checkout@v2
+          steps:
+            - uses: actions/checkout@v2
 
-              - uses: azure/login@v1
-                with:
-                  creds: ${{ secrets.AZURE_CREDENTIALS }}
+            - uses: azure/login@v1
+              with:
+                creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-              - name: ARM deploy
-                uses: azure/arm-deploy@v1
-                with:
-                  subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-                  resourceGroupName: ${{ github.event.inputs.resourceGroup }}
-                  template: ./templates/app-service.json
-                  parameters: appName=${{ github.event.inputs.appService }}
+            - name: ARM deploy
+              uses: azure/arm-deploy@v1
+              with:
+                subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+                resourceGroupName: ${{ github.event.inputs.resourceGroup }}
+                template: ./templates/app-service.json
+                parameters: appName=${{ github.event.inputs.appService }}
 
         build:
           runs-on: ubuntu-latest
@@ -2115,7 +2131,7 @@ Dec 2022
             - name: Set up Java version
               uses: actions/setup-java@v1
               with:
-                java-version: '17'
+                java-version: "17"
 
             - name: Build with Maven
               run: |
@@ -2126,16 +2142,16 @@ Dec 2022
               uses: actions/upload-artifact@v3
               with:
                 name: java-app
-                path: '${{ github.workspace }}/${{ env.APP_PATH }}/target/*.jar'
+                path: "${{ github.workspace }}/${{ env.APP_PATH }}/target/*.jar"
 
         deploy:
           if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
           runs-on: ubuntu-latest
           needs: build
           environment:
-            name: 'Production'
+            name: "Production"
             url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-          
+
           steps:
             - name: Download artifact from build job
               uses: actions/download-artifact@v3
@@ -2146,10 +2162,10 @@ Dec 2022
               id: deploy-to-webapp
               uses: azure/webapps-deploy@v2
               with:
-                app-name: 'cws202212rh-ue'
-                slot-name: 'staging'
+                app-name: "cws202212rh-ue"
+                slot-name: "staging"
                 publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BFC706B879C145D1AC295F52734CEEFA }}
-                package: '*.jar'
+                package: "*.jar"
 
         deploy-to-new-resource:
           if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
@@ -2170,9 +2186,9 @@ Dec 2022
               id: deploy-to-webAppName
               uses: azure/webapps-deploy@v2
               with:
-                app-name: 'app-${{ github.event.inputs.appService }}'
-                slot-name: 'Production'
-                package: '*.jar'
+                app-name: "app-${{ github.event.inputs.appService }}"
+                slot-name: "Production"
+                package: "*.jar"
       ```
 
       </details>
@@ -2183,7 +2199,7 @@ Dec 2022
 
 ### Task 6: ワークフローの実行
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - App Service へアプリを展開するワークフローを選択
 
