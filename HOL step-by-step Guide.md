@@ -375,6 +375,10 @@ Dec 2022
 
   <img src="images/app-service-deploy-center-02.png" />
 
+  **※Java の場合は以下のようになる。**
+
+  <img src="images/app-service-deploy-center-java-01.png" />
+
 - アカウント名、パスワードを入力し、サインインを実行
 
   <img src="images/app-service-deploy-center-03.png" />
