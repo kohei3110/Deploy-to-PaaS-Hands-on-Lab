@@ -605,6 +605,10 @@ Dec 2022
 
   <img src="images/update-app-service-workflow-04.png" />
 
+  **※Java の場合は以下のようになる。**
+
+  <img src="images/update-app-service-workflow-java-01.png>
+
 <br />
 
 ### Task 4: ワークフローの実行
