@@ -62,6 +62,14 @@ Dec 2022
 
     ※ {Email Address} を使用するメール アドレスに変更
 
+  - 設定値の確認
+
+    ```
+    git config --list --global
+    ```
+
+    ※ 設定したユーザー名・メール アドレスが出力されたら OK
+
 - サイドバーから Explorer を選択し "\*\*Clone Repository" をクリック
 
   <img src="images/github-clone-02.png" />
@@ -983,6 +991,7 @@ Dec 2022
     FROM openjdk:17-jdk-alpine
     EXPOSE 8080
     ENTRYPOINT ["java","-jar","/app.jar"]
+
     ```
 
         ※ build ジョブで発行されたアプリケーションをイメージにコピー
@@ -991,6 +1000,7 @@ Dec 2022
 
       </details>
     </details>
+    ```
 
 <br />
 
