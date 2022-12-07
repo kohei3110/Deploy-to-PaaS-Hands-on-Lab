@@ -70,6 +70,12 @@ Dec 2022
 
     ※ 設定したユーザー名・メール アドレスが出力されたら OK
 
+    ```
+    git remote -v
+    ```
+
+    ※ クローン先の GitHub URL が出力されたら OK
+
 - サイドバーから Explorer を選択し "\*\*Clone Repository" をクリック
 
   <img src="images/github-clone-02.png" />
