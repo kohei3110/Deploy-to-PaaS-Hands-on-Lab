@@ -431,6 +431,10 @@ Dec 2022
 
   <img src="images/app-service-workflow-04.png" />
 
+  **※Java の場合は以下のようになる。**
+
+  <img src="images/app-service-deploy-center-java-02.png" />
+
 - Visual Studio Code のサイドバーで "**Source Control**" を選択
 
 - "**...**" - "**Pull**" をクリック
