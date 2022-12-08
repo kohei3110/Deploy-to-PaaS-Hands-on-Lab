@@ -1333,7 +1333,7 @@ Dec 2022
 
 ### Task 7: ワークフローの実行
 
-- Web ブラウザで GitHubリポジトリへアクセス、"**Actions**" タブを選択
+- Web ブラウザで GitHub リポジトリへアクセス、"**Actions**" タブを選択
 
 - Container Apps へアプリを展開するワークフローを選択
 
@@ -1364,6 +1364,8 @@ Dec 2022
 - Visual Studio Code のサイドバーで "**Explorer** を選択
 
 - templates 配下に "**app-service.json**" の名前でファイルを作成
+
+　※ templates フォルダが存在しない場合は作成してからファイルを追加
 
   <img src="images/new-arm-template-02.png" />
 
