@@ -2162,9 +2162,9 @@ Dec 2022
               id: deploy-to-webapp
               uses: azure/webapps-deploy@v2
               with:
-                app-name: "cws202212rh-ue"
+                app-name: ${{ github.event.inputs.appService }}
                 slot-name: "staging"
-                publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BFC706B879C145D1AC295F52734CEEFA }}
+                publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ご自身の発行プロファイルの値 }}
                 package: "*.jar"
 
         deploy-to-new-resource:
