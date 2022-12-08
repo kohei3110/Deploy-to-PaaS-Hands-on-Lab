@@ -1391,6 +1391,8 @@ Dec 2022
 
 - templates 配下に "**app-service.json**" の名前でファイルを作成
 
+　※ templates フォルダが存在しない場合は作成してからファイルを追加
+
   <img src="images/new-arm-template-02.png" />
 
 - エディタで作成したファイルが開くため編集
