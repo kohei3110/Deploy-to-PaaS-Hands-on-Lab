@@ -4,6 +4,7 @@ Dec 2022
 <br />
 
 ### 参考情報
+
 - <a href="https://docs.microsoft.com/ja-jp/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming">名前付け規則を定義する</a>
 
 - <a href="https://docs.microsoft.com/ja-jp/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations">Azure リソースの種類に推奨される省略形</a>
@@ -18,7 +19,9 @@ Dec 2022
 
 ### パラメーター
 
-- **registryName**: Azure Container Registry（5 ～ 50 文字/英小文字、数字）
+- **registryName**: Azure Container Registry（5 ～ 26 文字/英小文字、数字）
+
+  参考: [ContainerApps: Not able to use Continous Deployment due to a invalid Secret Name error](https://github.com/microsoft/azure-container-apps/issues/495)
 
 - **virtualNetwork**: 仮想ネットワーク名（2 ～ 64 文字/英数字、アンダースコア、ピリオド、およびハイフン）
 
