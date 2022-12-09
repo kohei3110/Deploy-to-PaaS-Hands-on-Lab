@@ -85,7 +85,7 @@ Dec 2022
 
 <br />
 
-### 仮想ネットワーク（Spoke）＋ Azure Container Registory
+### 仮想ネットワーク（Spoke）＋ Azure Container Registry
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fkohei3110%2FDeploy-to-PaaS-Hands-on-Lab%2Fmain%2Fadmin%2Fdeploy-acr-vnet.json)
 
