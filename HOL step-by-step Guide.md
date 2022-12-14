@@ -1522,17 +1522,17 @@ Dec 2022
     "location": "[resourceGroup().location]",
     "dependsOn":
       [
-        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
       ],
     "properties":
       {
         "siteConfig":
           {
             "metadata": [{ "name": "CURRENT_STACK", "value": "dotnet" }],
-            "netFrameworkVersion": "v6.0",
+            "netFrameworkVersion": "v6.0"
           },
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
-        "httpsOnly": true,
+        "httpsOnly": true
       },
   }
   ```
@@ -1552,14 +1552,14 @@ Dec 2022
     "location": "[resourceGroup().location]",
     "dependsOn":
       [
-        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
       ],
     "kind": "app,linux",
     "properties":
       {
         "siteConfig": { "linuxFxVersion": "JAVA|17-java17" },
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
-        "httpsOnly": true,
+        "httpsOnly": true
       },
   }
   ```
@@ -1585,7 +1585,7 @@ Dec 2022
             "type": "string",
             "metadata":
               {
-                "description": "Web アプリ名 (App Service には app-, Plan には asp- の接頭語が付きます)",
+                "description": "Web アプリ名 (App Service には app-, Plan には asp- の接頭語が付きます)"
               },
           },
       },
@@ -1593,7 +1593,7 @@ Dec 2022
     "variables":
       {
         "appServicePlan": "[concat('asp-', parameters('appName'))]",
-        "appService": "[concat('app-', parameters('appName'))]",
+        "appService": "[concat('app-', parameters('appName'))]"
       },
     "resources":
       [
@@ -1602,7 +1602,7 @@ Dec 2022
           "apiVersion": "2022-03-01",
           "name": "[variables('appServicePlan')]",
           "location": "[resourceGroup().location]",
-          "sku": { "name": "S1", "tier": "Standard" },
+          "sku": { "name": "S1", "tier": "Standard" }
         },
         {
           "type": "Microsoft.Web/sites",
@@ -1611,17 +1611,17 @@ Dec 2022
           "location": "[resourceGroup().location]",
           "dependsOn":
             [
-              "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
+              "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]"
             ],
           "properties":
             {
               "siteConfig":
                 {
                   "metadata": [{ "name": "CURRENT_STACK", "value": "dotnet" }],
-                  "netFrameworkVersion": "v6.0",
+                  "netFrameworkVersion": "v6.0"
                 },
               "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlan'))]",
-              "httpsOnly": true,
+              "httpsOnly": true
             },
         },
       ],
