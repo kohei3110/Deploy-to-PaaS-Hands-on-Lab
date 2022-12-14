@@ -1,15 +1,24 @@
-name: Deploy new App Service
+name: Build and deploy ASP.Net Core app to Azure Web App - app-cloudworkshop-1
 
 on:
   workflow_dispatch:
     inputs:
+      deploy-new-resouce:
+        description: "新しい App Service を展開"
+        type: boolean
       resourceGroup:
-        description: 'リソース グループ名'
-        required: true
+        description: "リソース グループ"
         type: string
+      appService:
+        description: "アプリケーション名"
+        type: string
+
+env:
+  APP_PATH: "./src/CS"
 
 jobs:
   add-resource:
+    if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -25,4 +34,74 @@ jobs:
           subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
           resourceGroupName: ${{ github.event.inputs.resourceGroup }}
           template: ./templates/app-service.json
-          parameters: ./templates/app-service.parameters.json
+          parameters: appName=${{ github.event.inputs.appService }}
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
+          include-prerelease: true
+
+      - name: Build with dotnet
+        run: dotnet build ${{ env.APP_PATH }} --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/myapp
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{ env.APP_PATH }}/myapp
+
+  deploy:
+    if: ${{ github.event.inputs.deploy-new-resouce == 'false' }}
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: "Production"
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "app-cloudworkshop-1"
+          slot-name: "staging"
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_xxxx }}
+          package: .
+
+  deploy-to-new-resource:
+    if: ${{ github.event.inputs.deploy-new-resouce == 'true' }}
+    runs-on: windows-latest
+    needs: [add-resource, build]
+
+    steps:
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Download artifact from build jobs
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+
+      - name: Deploy to Web app
+        id: deploy-to-webAppName
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "app-${{ github.event.inputs.appService }}"
+          slot-name: "Production"
+          package: .
